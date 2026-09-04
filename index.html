@@ -224,6 +224,47 @@
 
   /* TORNA SU */
   .back-to-top{position:fixed;bottom:28px;right:28px;width:48px;height:48px;border-radius:50%;background:var(--green-dark);color:var(--white);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,0.22);opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .25s ease, transform .25s ease, background .2s ease, visibility .25s;z-index:30;}
+
+  /* AUDIO PLAYER */
+  .audio-player{position:fixed;left:20px;bottom:20px;z-index:40;font-family:inherit;}
+  .audio-toggle{width:50px;height:50px;border-radius:50%;background:var(--green-dark);color:var(--white);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.25);transition:background .2s ease, transform .2s ease;}
+  .audio-toggle:hover{background:var(--green);transform:scale(1.05);}
+  .audio-toggle svg{width:22px;height:22px;}
+  .audio-toggle .eq-bar{transform-origin:bottom;}
+  .audio-player.playing .audio-toggle .eq-bar{animation:eqbounce 0.9s ease-in-out infinite;}
+  .audio-toggle .eq-bar:nth-child(1){animation-delay:0s;}
+  .audio-toggle .eq-bar:nth-child(2){animation-delay:.2s;}
+  .audio-toggle .eq-bar:nth-child(3){animation-delay:.4s;}
+  @keyframes eqbounce{0%,100%{transform:scaleY(.4);}50%{transform:scaleY(1);}}
+
+  .audio-panel{position:absolute;left:0;bottom:62px;width:290px;background:var(--white);border:1px solid #e2e2e2;border-radius:14px;box-shadow:0 12px 32px rgba(0,0,0,.18);padding:16px 18px 14px;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .2s ease, transform .2s ease, visibility .2s;}
+  .audio-player.open .audio-panel{opacity:1;visibility:visible;transform:translateY(0);}
+
+  .audio-now-label{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin-bottom:2px;}
+  .audio-track-title{font-size:14.5px;font-weight:700;color:var(--green-dark);margin-bottom:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+  .audio-progress{width:100%;height:4px;border-radius:4px;background:#e2e2e2;cursor:pointer;position:relative;margin-bottom:12px;}
+  .audio-progress-fill{position:absolute;left:0;top:0;height:100%;width:0%;background:var(--green);border-radius:4px;}
+
+  .audio-controls{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;}
+  .audio-btn{width:34px;height:34px;border-radius:50%;border:none;background:var(--grey-bg);color:var(--green-dark);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s ease;}
+  .audio-btn:hover{background:#e2e2e2;}
+  .audio-btn svg{width:16px;height:16px;}
+  .audio-btn-play{width:42px;height:42px;background:var(--green-dark);color:var(--white);}
+  .audio-btn-play:hover{background:var(--green);}
+  .audio-btn-play svg{width:18px;height:18px;}
+  .audio-btn-mute.muted{color:#b91c1c;}
+
+  .audio-playlist{max-height:150px;overflow-y:auto;border-top:1px solid #eee;padding-top:8px;display:flex;flex-direction:column;gap:2px;}
+  .audio-playlist-item{font-size:12.5px;color:var(--text-dark);padding:6px 8px;border-radius:6px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .audio-playlist-item:hover{background:var(--grey-bg);}
+  .audio-playlist-item.active{background:#E8F5E9;color:var(--green-dark);font-weight:700;}
+
+  @media (max-width:600px){
+    .audio-player{left:14px;bottom:14px;}
+    .audio-panel{width:250px;}
+  }
+  @media print{ .audio-player{display:none!important;} }
   .back-to-top.visible{opacity:1;visibility:visible;transform:translateY(0);}
   .back-to-top:hover{background:var(--green);}
   @media (max-width:600px){
@@ -1061,10 +1102,12 @@
   <div class="yoda-list">
     <div class="yoda-quote">
       <div class="yoda-text">"No! Provare no! Fare, o non fare! Non c'è provare!"</div>
-          </div>
+      <div class="yoda-note">Sul collega che dice "vabbè, magari ci provo un giorno".</div>
+    </div>
     <div class="yoda-quote">
       <div class="yoda-text">"La paura è la via per il Lato Oscuro. La paura conduce all'ira, l'ira all'odio; l'odio conduce alla sofferenza. Ah… io sento in te molta paura."</div>
-         </div>
+      <div class="yoda-note">Sul primo incontro. Ci lavoriamo.</div>
+    </div>
     <div class="yoda-quote">
       <div class="yoda-text">"Ingannarvi gli occhi, possono. Nella Forza, molto diverso ognuno di voi è."</div>
       <div class="yoda-note">Sulle allucinazioni dell'IA. Vale anche per gli studenti.</div>
@@ -1654,6 +1697,47 @@
   <p>In conformità alle Linee Guida MIM 2025 e al Regolamento IA d'Istituto</p>
 </footer>
 
+<div class="audio-player" id="audioPlayer">
+  <button class="audio-toggle" id="audioToggle" aria-label="Apri il lettore audio">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" id="audioToggleIconPlay"><path d="M8 5v14l11-7z" fill="#ffffff" stroke="none"/></svg>
+    <svg viewBox="0 0 24 24" style="display:none;" id="audioToggleIconEq">
+      <rect class="eq-bar" x="5" y="10" width="3.5" height="9" rx="1.5" fill="#ffffff"/>
+      <rect class="eq-bar" x="10.5" y="6" width="3.5" height="13" rx="1.5" fill="#ffffff"/>
+      <rect class="eq-bar" x="16" y="12" width="3.5" height="7" rx="1.5" fill="#ffffff"/>
+    </svg>
+  </button>
+
+  <div class="audio-panel" id="audioPanel">
+    <div class="audio-now-label">In riproduzione</div>
+    <div class="audio-track-title" id="audioTrackTitle">—</div>
+
+    <div class="audio-progress" id="audioProgress">
+      <div class="audio-progress-fill" id="audioProgressFill"></div>
+    </div>
+
+    <div class="audio-controls">
+      <button class="audio-btn" id="audioPrev" aria-label="Traccia precedente">
+        <svg viewBox="0 0 24 24" fill="#123C16" stroke="none"><path d="M6 5h2v14H6zM20 5v14l-11-7z"/></svg>
+      </button>
+      <button class="audio-btn audio-btn-play" id="audioPlayPause" aria-label="Play/Pausa">
+        <svg viewBox="0 0 24 24" fill="#ffffff" stroke="none" id="audioPlayIcon"><path d="M8 5v14l11-7z"/></svg>
+        <svg viewBox="0 0 24 24" fill="#ffffff" stroke="none" id="audioPauseIcon" style="display:none;"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+      </button>
+      <button class="audio-btn" id="audioNext" aria-label="Traccia successiva">
+        <svg viewBox="0 0 24 24" fill="#123C16" stroke="none"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg>
+      </button>
+      <button class="audio-btn audio-btn-mute" id="audioMute" aria-label="Attiva/disattiva audio">
+        <svg viewBox="0 0 24 24" fill="#123C16" stroke="none" id="audioVolIcon"><path d="M4 9v6h4l5 5V4L8 9z"/></svg>
+        <svg viewBox="0 0 24 24" fill="#b91c1c" stroke="none" id="audioMuteIcon" style="display:none;"><path d="M4 9v6h4l5 5V4L8 9z"/><path d="M15.5 8.5l5 7M20.5 8.5l-5 7" stroke="#b91c1c" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <div class="audio-playlist" id="audioPlaylist"></div>
+  </div>
+
+  <audio id="audioEl" preload="none"></audio>
+</div>
+
 <button class="back-to-top" id="backToTop" aria-label="Torna su">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
@@ -1789,6 +1873,124 @@
   tabBtns.forEach(function(btn) {
     btn.addEventListener('click', function() { activateTab(btn.dataset.tab); });
   });
+</script>
+
+<script>
+  // LETTORE AUDIO — playlist musiche di sottofondo
+  var audioTracks = [
+    { title: "Atlantic Tide",              src: "Atlantic_Tide.mp3" },
+    { title: "Bamboo and Water",           src: "Bamboo_and_Water.mp3" },
+    { title: "Goth",                       src: "Goth.mp3" },
+    { title: "Hermano",                    src: "Hermano.mp3" },
+    { title: "Lazy Afternoon Study Hour",  src: "Lazy_Afternoon_Study_Hour.mp3" },
+    { title: "Weightless Morning",         src: "Weightless_Morning.mp3" },
+    { title: "Winter Silence",             src: "Winter_Silence.mp3" }
+  ];
+
+  (function () {
+    var el = {
+      player:      document.getElementById('audioPlayer'),
+      toggle:      document.getElementById('audioToggle'),
+      togglePlay:  document.getElementById('audioToggleIconPlay'),
+      toggleEq:    document.getElementById('audioToggleIconEq'),
+      panel:       document.getElementById('audioPanel'),
+      title:       document.getElementById('audioTrackTitle'),
+      progress:    document.getElementById('audioProgress'),
+      progressFill:document.getElementById('audioProgressFill'),
+      prev:        document.getElementById('audioPrev'),
+      playPause:   document.getElementById('audioPlayPause'),
+      playIcon:    document.getElementById('audioPlayIcon'),
+      pauseIcon:   document.getElementById('audioPauseIcon'),
+      next:        document.getElementById('audioNext'),
+      mute:        document.getElementById('audioMute'),
+      volIcon:     document.getElementById('audioVolIcon'),
+      muteIcon:    document.getElementById('audioMuteIcon'),
+      playlist:    document.getElementById('audioPlaylist'),
+      audio:       document.getElementById('audioEl')
+    };
+
+    var current = 0;
+    var wasPlayingBeforeSeek = false;
+
+    // costruzione playlist visuale
+    audioTracks.forEach(function (track, i) {
+      var item = document.createElement('div');
+      item.className = 'audio-playlist-item' + (i === 0 ? ' active' : '');
+      item.textContent = track.title;
+      item.addEventListener('click', function () { loadTrack(i, true); });
+      el.playlist.appendChild(item);
+    });
+
+    function updatePlaylistHighlight() {
+      var items = el.playlist.querySelectorAll('.audio-playlist-item');
+      items.forEach(function (it, i) { it.classList.toggle('active', i === current); });
+    }
+
+    function loadTrack(index, autoplay) {
+      current = (index + audioTracks.length) % audioTracks.length;
+      var track = audioTracks[current];
+      el.audio.src = track.src;
+      el.title.textContent = track.title;
+      el.progressFill.style.width = '0%';
+      updatePlaylistHighlight();
+      if (autoplay) { play(); }
+    }
+
+    function play() {
+      el.audio.play().then(function () {
+        el.playIcon.style.display = 'none';
+        el.pauseIcon.style.display = '';
+        el.togglePlay.style.display = 'none';
+        el.toggleEq.style.display = '';
+        el.player.classList.add('playing');
+      }).catch(function () { /* riproduzione bloccata finché l'utente non interagisce */ });
+    }
+
+    function pause() {
+      el.audio.pause();
+      el.playIcon.style.display = '';
+      el.pauseIcon.style.display = 'none';
+      el.togglePlay.style.display = '';
+      el.toggleEq.style.display = 'none';
+      el.player.classList.remove('playing');
+    }
+
+    el.toggle.addEventListener('click', function () {
+      el.player.classList.toggle('open');
+    });
+    document.addEventListener('click', function (e) {
+      if (!el.player.contains(e.target)) { el.player.classList.remove('open'); }
+    });
+
+    el.playPause.addEventListener('click', function () {
+      if (!el.audio.src) { loadTrack(0, true); return; }
+      if (el.audio.paused) { play(); } else { pause(); }
+    });
+    el.prev.addEventListener('click', function () { loadTrack(current - 1, true); });
+    el.next.addEventListener('click', function () { loadTrack(current + 1, true); });
+    el.audio.addEventListener('ended', function () { loadTrack(current + 1, true); });
+
+    el.mute.addEventListener('click', function () {
+      el.audio.muted = !el.audio.muted;
+      el.volIcon.style.display = el.audio.muted ? 'none' : '';
+      el.muteIcon.style.display = el.audio.muted ? '' : 'none';
+      el.mute.classList.toggle('muted', el.audio.muted);
+    });
+
+    el.audio.addEventListener('timeupdate', function () {
+      if (!el.audio.duration) { return; }
+      el.progressFill.style.width = (el.audio.currentTime / el.audio.duration * 100) + '%';
+    });
+    el.progress.addEventListener('click', function (e) {
+      if (!el.audio.duration) { return; }
+      var rect = el.progress.getBoundingClientRect();
+      var ratio = (e.clientX - rect.left) / rect.width;
+      el.audio.currentTime = ratio * el.audio.duration;
+    });
+
+    // titolo iniziale visibile prima del primo play, senza avviare il download
+    el.title.textContent = audioTracks[0].title;
+  })();
 </script>
 </body>
 </html>
