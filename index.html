@@ -1055,13 +1055,6 @@
   </div>
 </section>
 
-<section>
-  <h2 class="section-headline">A chi è rivolto</h2>
-  <div class="audience-box">
-    <p>Il corso è pensato per i colleghi che conoscono poco l'intelligenza artificiale e sono un po' restii a usarla in classe. Non serve alcuna competenza tecnica pregressa: solo la voglia di provare, con calma e senza fretta.</p>
-  </div>
-</section>
-
 <section class="yoda-section" id="yoda">
   <h2 class="section-headline">Parola di Maestro</h2>
   <p class="section-sub">Perché in fondo un corso sull'IA è un addestramento Jedi. Con meno spade laser e più fogli di calcolo.</p>
@@ -1723,11 +1716,6 @@
   gsap.from(".biblio-item",{
     scrollTrigger:{trigger:".biblio-list",start:"top 78%"},
     opacity:0,y:20,duration:.5,stagger:.08,ease:"power2.out"
-  });
-
-  gsap.from(".audience-box",{
-    scrollTrigger:{trigger:".audience-box",start:"top 78%"},
-    opacity:0,y:30,duration:.8,ease:"power2.out"
   });
 
   const backToTop = document.getElementById('backToTop');
