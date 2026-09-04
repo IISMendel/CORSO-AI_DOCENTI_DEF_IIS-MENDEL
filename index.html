@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Intelligenza Artificiale a scuola — Corso e Piattaforme per docenti | IIS Gregorio Mendel</title>
+<meta name="description" content="Corso base di formazione sull'IA per i docenti e guida comparativa alle piattaforme didattiche, con quadro normativo di conformita (AI Act, Linee Guida MIM, Regolamento d'Istituto). IIS Gregorio Mendel, Villa Cortese.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { theme: { extend: {
+        colors: { mendel: {
+            50:'#e8f5e9',100:'#c8e6c9',200:'#a5d6a7',300:'#81c784',400:'#4caf50',
+            500:'#43a047',600:'#388e3c',700:'#2e7d32',800:'#1b5e20',900:'#123c16'
+        } },
+        fontFamily: { sans: ['Inter','system-ui','Segoe UI','Roboto','sans-serif'] }
+    } } }
+</script>
+<script src="https://unpkg.com/lucide@0.544.0/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --green-dark:#1B5E20;
+    --green:#2E7D32;
+    --green-light:#4CAF50;
+    --white:#FFFFFF;
+    --grey-bg:#F5F5F5;
+    --text-dark:#1A1A1A;
+    --text-muted:#5A5A5A;
+    --amber:#D97706;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif;background:var(--white);color:var(--text-dark);overflow-x:hidden;}
+
+  /* HERO */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--green-dark);overflow:hidden;}
+  .hero-content{position:relative;z-index:2;text-align:center;max-width:820px;padding:0 24px;}
+  .hero-eyebrow{font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--green-light);margin-bottom:20px;}
+  .hero-title{font-size:56px;font-weight:800;color:var(--white);line-height:1.15;margin-bottom:22px;}
+  .hero-subtitle{font-size:19px;color:rgba(255,255,255,0.82);line-height:1.6;margin-bottom:34px;}
+  .btn-primary{display:inline-block;background:var(--green-light);color:var(--green-dark);padding:16px 42px;border-radius:6px;font-weight:700;font-size:17px;border:none;cursor:pointer;text-decoration:none;transition:background .2s ease, transform .15s ease;}
+  .btn-primary:hover{background:#5fc463;transform:translateY(-2px);}
+  .hero-shapes-back, .hero-shapes-mid{position:absolute;pointer-events:none;overflow:visible;}
+  .shape-rect{width:340px;height:200px;border:2px solid rgba(76,175,80,0.18);border-radius:12px;top:10%;right:6%;}
+  .shape-circle{width:70px;height:70px;border-radius:50%;background:rgba(76,175,80,0.12);bottom:20%;left:7%;}
+  .shape-diamond{width:55px;height:55px;background:rgba(255,255,255,0.10);transform:rotate(45deg);top:60%;right:14%;}
+  .shape-dot{width:10px;height:10px;border-radius:50%;background:var(--green-light);top:26%;left:9%;}
+  @keyframes floatA{0%,100%{transform:translateY(0) rotate(0);}50%{transform:translateY(-16px) rotate(4deg);}}
+  @keyframes floatB{0%,100%{transform:translateY(0) rotate(0);}50%{transform:translateY(-11px) rotate(-3deg);}}
+  @keyframes floatC{0%,100%{transform:translateY(0) rotate(45deg);}50%{transform:translateY(-9px) rotate(50deg);}}
+  .float-a{animation:floatA 7s ease-in-out infinite;}
+  .float-b{animation:floatB 9s ease-in-out infinite 1.5s;}
+  .float-c{animation:floatC 6s ease-in-out infinite .5s;}
+  .scroll-indicator{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);cursor:pointer;animation:bounce 2s ease-in-out infinite;}
+  @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);opacity:.5;}50%{transform:translateX(-50%) translateY(7px);opacity:1;}}
+
+  /* INFO STRIP */
+  .info-strip{background:var(--grey-bg);padding:26px 24px;text-align:center;font-size:15px;color:var(--text-muted);border-bottom:1px solid #e2e2e2;}
+  .info-strip b{color:var(--green-dark);}
+
+  /* PAGE NAV */
+  .page-nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,0.97);backdrop-filter:blur(6px);border-bottom:1px solid #e2e2e2;display:flex;justify-content:center;gap:6px;flex-wrap:wrap;padding:12px 16px;}
+  .page-nav a{font-size:13.5px;font-weight:600;color:var(--text-muted);text-decoration:none;padding:8px 14px;border-radius:20px;transition:background .2s,color .2s;}
+  .page-nav a:hover{background:#E8F5E9;color:var(--green-dark);}
+
+  /* SECTIONS */
+  section{padding:90px 24px;}
+  .section-headline{text-align:center;font-size:38px;font-weight:700;color:var(--green-dark);margin-bottom:14px;}
+  .section-sub{text-align:center;font-size:16px;color:var(--text-muted);max-width:640px;margin:0 auto 50px;}
+
+  /* PERCHÈ */
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1200px;margin:0 auto;}
+  .why-card{background:var(--white);border:1px solid #e2e2e2;border-radius:12px;padding:32px 26px;transition:transform .25s, box-shadow .25s;}
+  .why-card:hover{transform:translateY(-5px);box-shadow:0 10px 24px rgba(0,0,0,0.08);}
+  .why-icon{width:44px;height:44px;margin-bottom:16px;}
+  .why-title{font-size:20px;font-weight:600;color:var(--green-dark);margin-bottom:8px;}
+  .why-desc{font-size:14.5px;color:var(--text-muted);line-height:1.55;}
+
+  /* PROGRAMMA */
+  .program{background:var(--grey-bg);}
+  .program-list{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:18px;}
+  .program-item{display:flex;gap:22px;background:var(--white);border-radius:10px;padding:24px 26px;border:1px solid #e2e2e2;align-items:flex-start;position:relative;}
+  .program-num{flex:0 0 auto;width:44px;height:44px;border-radius:50%;background:var(--green);color:var(--white);font-weight:700;font-size:17px;display:flex;align-items:center;justify-content:center;}
+  .program-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:5px;}
+  .program-title{font-size:18px;font-weight:700;color:var(--green-dark);}
+  .program-week{flex:0 0 auto;font-size:11.5px;font-weight:700;color:var(--text-muted);background:var(--grey-bg);border:1px solid #e2e2e2;padding:3px 10px;border-radius:20px;white-space:nowrap;}
+  .program-desc{font-size:14.5px;color:var(--text-muted);line-height:1.5;margin-bottom:10px;}
+  .program-bullets{list-style:none;display:flex;flex-direction:column;gap:6px;}
+  .program-bullets li{font-size:14px;color:var(--text-dark);padding-left:20px;position:relative;line-height:1.5;}
+  .program-bullets li::before{content:"✓";position:absolute;left:0;color:var(--green-light);font-weight:700;}
+  .program-note{max-width:900px;margin:26px auto 0;background:#FFF7E6;border:1px solid var(--amber);border-radius:10px;padding:16px 22px;font-size:14px;color:#7a4d00;}
+
+  /* ESEMPI PRATICI */
+  .examples-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;max-width:1000px;margin:0 auto;}
+  .example-card{background:var(--white);border:1px solid #e2e2e2;border-radius:12px;padding:28px;transition:transform .25s, box-shadow .25s;}
+  .example-card:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(0,0,0,0.08);}
+  .example-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--green);background:#E8F5E9;padding:4px 10px;border-radius:20px;margin-bottom:12px;}
+  .example-title{font-size:18px;font-weight:700;color:var(--green-dark);margin-bottom:8px;}
+  .example-desc{font-size:14.5px;color:var(--text-muted);line-height:1.55;}
+
+  /* ROADMAP TIMELINE */
+  .roadmap{background:var(--grey-bg);}
+  .roadmap-intro{max-width:820px;margin:0 auto 50px;background:#E8F5E9;border:1px solid var(--green-light);border-radius:12px;padding:22px 28px;text-align:center;color:var(--green-dark);font-size:15px;line-height:1.6;}
+  .timeline{max-width:760px;margin:0 auto;position:relative;padding-left:36px;border-left:2px solid #cfe8d0;display:flex;flex-direction:column;gap:38px;}
+  .timeline-item{position:relative;}
+  .timeline-dot{position:absolute;left:-47px;top:0;width:26px;height:26px;border-radius:50%;background:var(--green);color:var(--white);font-weight:700;font-size:12.5px;display:flex;align-items:center;justify-content:center;border:3px solid var(--grey-bg);}
+  .timeline-title{font-size:18px;font-weight:700;color:var(--green-dark);margin-bottom:6px;}
+  .timeline-desc{font-size:14.5px;color:var(--text-muted);line-height:1.55;}
+
+  /* A CHI SI RIVOLGE */
+  .audience-box{max-width:820px;margin:0 auto;background:#E8F5E9;border:1px solid var(--green-light);border-radius:12px;padding:34px 38px;text-align:center;}
+  .audience-box p{font-size:16.5px;color:var(--green-dark);line-height:1.65;}
+
+  /* CTA FINALE */
+  .closing{background:var(--green-dark);text-align:center;position:relative;overflow:hidden;}
+  .closing-content{position:relative;z-index:2;max-width:700px;margin:0 auto;}
+  .closing-headline{font-size:40px;font-weight:800;color:var(--white);margin-bottom:16px;}
+  .closing-sub{font-size:16px;color:rgba(255,255,255,0.82);margin-bottom:32px;}
+  .closing-note{margin-top:22px;font-size:13.5px;color:rgba(255,255,255,0.6);}
+
+  /* PROMPT LIBRARY */
+  .prompts-section{background:var(--white);}
+  .prompt-group{max-width:900px;margin:0 auto 28px;border:1px solid #e2e2e2;border-radius:12px;overflow:hidden;}
+  .prompt-group-title{background:var(--green);color:var(--white);font-size:16px;font-weight:700;padding:14px 22px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+  .prompt-group-title span.count{font-size:12px;font-weight:600;background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:20px;}
+  .prompt-list{list-style:none;padding:8px 0;}
+  .prompt-list li{padding:14px 22px;font-size:14.5px;color:var(--text-dark);line-height:1.55;border-top:1px solid #f0f0f0;}
+  .prompt-list li:first-child{border-top:none;}
+  .prompt-list li b{color:var(--green-dark);}
+  .prompts-note{max-width:900px;margin:26px auto 0;background:#E8F5E9;border:1px solid var(--green-light);border-radius:10px;padding:18px 24px;font-size:14px;color:var(--green-dark);}
+
+  /* CTA SITO ESTERNO */
+  .external-cta{max-width:900px;margin:26px auto 0;background:var(--green-dark);border-radius:14px;padding:28px 32px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;}
+  .external-cta-text{flex:1;min-width:240px;}
+  .external-cta-badge{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.08em;color:var(--green-dark);background:var(--white);padding:3px 9px;border-radius:20px;margin-bottom:8px;}
+  .external-cta-title{font-size:16px;font-weight:700;color:var(--white);margin-bottom:6px;}
+  .external-cta-desc{font-size:13.5px;color:rgba(255,255,255,.88);line-height:1.55;}
+  .external-cta-btn{flex:0 0 auto;background:var(--white);color:var(--green-dark);font-weight:700;font-size:14px;padding:12px 22px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:opacity .2s;}
+  .external-cta-btn:hover{opacity:.88;}
+
+  /* GLOSSARIO */
+  .glossary-section{background:var(--grey-bg);}
+  .glossary-list{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:2px;}
+  .glossary-item{background:var(--white);border:1px solid #e2e2e2;padding:18px 26px;font-size:14.5px;color:var(--text-dark);line-height:1.6;}
+  .glossary-item:first-child{border-radius:10px 10px 0 0;}
+  .glossary-item:last-child{border-radius:0 0 10px 10px;}
+  .glossary-item + .glossary-item{border-top:none;}
+  .glossary-item b{color:var(--green-dark);}
+  .glossary-letter{max-width:900px;margin:34px auto 8px;font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--green);text-transform:uppercase;}
+  .glossary-letter:first-of-type{margin-top:0;}
+
+  /* BIBLIOGRAFIA */
+  .biblio-list{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:14px;}
+  .biblio-item{background:var(--grey-bg);border:1px solid #e2e2e2;border-left:4px solid var(--green);border-radius:0 10px 10px 0;padding:18px 24px;font-size:14.5px;color:var(--text-dark);line-height:1.55;}
+  .biblio-item .biblio-author{font-weight:700;color:var(--green-dark);}
+  .biblio-item .biblio-title{font-style:italic;}
+  .biblio-subtitle{max-width:820px;margin:38px auto 14px;font-size:16px;font-weight:700;color:var(--green-dark);}
+  .biblio-note{max-width:820px;margin:0 auto 18px;font-size:13.5px;color:var(--text-muted);}
+  .creator-tags{max-width:820px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px;}
+  .creator-tag{background:var(--white);border:1px solid var(--green-light);color:var(--green-dark);font-size:13.5px;font-weight:600;padding:9px 16px;border-radius:20px;}
+
+  /* FRAMEWORK / PROMPT ENGINEERING EXPLAINER */
+  .framework-box{max-width:900px;margin:0 auto 46px;background:var(--grey-bg);border:1px solid #e2e2e2;border-radius:14px;padding:36px 40px;}
+  .framework-intro{font-size:14.5px;color:var(--text-dark);line-height:1.65;margin-bottom:26px;}
+  .framework-intro b{color:var(--green-dark);}
+  .framework-table{width:100%;border-collapse:collapse;margin-bottom:14px;background:var(--white);border-radius:10px;overflow:hidden;border:1px solid #e2e2e2;}
+  .framework-table th{background:var(--green-dark);color:var(--white);font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;text-align:left;padding:12px 16px;}
+  .framework-table td{font-size:14px;color:var(--text-dark);line-height:1.5;padding:14px 16px;border-top:1px solid #eee;vertical-align:top;}
+  .framework-table td.letter{font-weight:800;color:var(--green);font-size:16px;width:34px;}
+  .framework-table td.label{font-weight:700;color:var(--green-dark);width:150px;}
+  .framework-example{background:#E8F5E9;border-left:4px solid var(--green-light);border-radius:0 8px 8px 0;padding:16px 20px;font-size:13.5px;color:var(--green-dark);line-height:1.6;font-style:italic;margin-bottom:30px;}
+  .framework-subtitle{font-size:18px;font-weight:700;color:var(--green-dark);margin:8px 0 12px;}
+  .framework-rules{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:8px;}
+  .framework-rule{background:var(--white);border:1px solid #e2e2e2;border-radius:10px;padding:16px 18px;}
+  .framework-rule-title{font-size:14px;font-weight:700;color:var(--green-dark);margin-bottom:6px;}
+  .framework-rule-desc{font-size:13px;color:var(--text-muted);line-height:1.5;}
+  .framework-when{width:100%;border-collapse:collapse;margin-top:10px;background:var(--white);border-radius:10px;overflow:hidden;border:1px solid #e2e2e2;}
+  .framework-when th{background:var(--green);color:var(--white);font-size:12.5px;font-weight:700;text-align:left;padding:10px 16px;}
+  .framework-when td{font-size:13.5px;color:var(--text-dark);padding:11px 16px;border-top:1px solid #eee;}
+
+  .craft-examples{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  .craft-example{background:var(--white);border:1px solid #e2e2e2;border-radius:10px;padding:16px 18px;}
+  .craft-subject{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--white);background:var(--green);padding:3px 10px;border-radius:20px;margin-bottom:10px;}
+  .craft-text{font-size:13px;color:var(--text-dark);line-height:1.6;}
+  .craft-text b{color:var(--green-dark);}
+
+  /* METODOLOGIE */
+  .method-section{background:var(--grey-bg);}
+  .method-intro-box{max-width:820px;margin:0 auto 40px;background:var(--white);border:1px solid #e2e2e2;border-radius:12px;padding:28px 32px;font-size:15px;color:var(--text-dark);line-height:1.7;}
+  .method-list{max-width:920px;margin:0 auto;display:flex;flex-direction:column;gap:16px;}
+  .method-card{background:var(--white);border:1px solid #e2e2e2;border-radius:12px;overflow:hidden;}
+  .method-card summary{cursor:pointer;list-style:none;padding:20px 26px;display:flex;justify-content:flex-start;align-items:center;gap:14px;font-size:17px;font-weight:700;color:var(--green-dark);}
+  .method-card summary::-webkit-details-marker{display:none;}
+  .method-card summary .m-tag{flex:0 0 auto;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--green);background:#E8F5E9;padding:4px 10px;border-radius:20px;}
+  .method-card summary .m-name{flex:1;}
+  .method-card summary .chevron{flex:0 0 auto;width:20px;height:20px;transition:transform .25s ease;}
+  .method-card[open] summary .chevron{transform:rotate(180deg);}
+  .method-body{padding:0 26px 28px;color:var(--text-dark);font-size:14.5px;line-height:1.68;border-top:1px solid #f0f0f0;}
+  .method-body p{margin:16px 0 14px;}
+  .method-body h4{font-size:14px;font-weight:700;color:var(--green-dark);margin:18px 0 6px;text-transform:uppercase;letter-spacing:.03em;}
+  .method-table{width:100%;border-collapse:collapse;margin:14px 0 18px;font-size:13.5px;}
+  .method-table th{background:var(--green);color:var(--white);text-align:left;padding:9px 12px;font-weight:600;}
+  .method-table td{padding:9px 12px;border-bottom:1px solid #e2e2e2;vertical-align:top;}
+  .method-table tr:nth-child(even) td{background:#F9FBF9;}
+  .method-prompt{background:#E8F5E9;border:1px solid var(--green-light);border-radius:10px;padding:16px 20px;font-size:13.5px;color:var(--green-dark);line-height:1.6;margin-top:10px;}
+  .method-prompt b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--green);margin-bottom:6px;}
+  .method-prompt-alt{background:var(--white);border:1px dashed var(--green);border-radius:10px;padding:16px 20px;font-size:13.5px;color:var(--text-dark);line-height:1.6;margin-top:10px;}
+  .method-prompt-alt b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--green-dark);margin-bottom:6px;}
+  .method-closing{max-width:820px;margin:34px auto 0;background:#E8F5E9;border:1px solid var(--green-light);border-radius:12px;padding:24px 28px;font-size:14.5px;color:var(--green-dark);line-height:1.68;}
+
+  footer{padding:34px 24px;text-align:center;font-size:13px;color:var(--text-muted);background:var(--white);border-top:1px solid #e2e2e2;}
+  footer p{margin-top:4px;}
+
+  /* TORNA SU */
+  .back-to-top{position:fixed;bottom:28px;right:28px;width:48px;height:48px;border-radius:50%;background:var(--green-dark);color:var(--white);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,0.22);opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .25s ease, transform .25s ease, background .2s ease, visibility .25s;z-index:30;}
+  .back-to-top.visible{opacity:1;visibility:visible;transform:translateY(0);}
+  .back-to-top:hover{background:var(--green);}
+  @media (max-width:600px){
+    .back-to-top{bottom:18px;right:18px;width:44px;height:44px;}
+  }
+
+  @media (max-width:900px){
+    .why-grid{grid-template-columns:1fr 1fr;}
+    .examples-grid{grid-template-columns:1fr;}
+    .hero-title{font-size:38px;}
+    .framework-rules{grid-template-columns:1fr;}
+    .craft-examples{grid-template-columns:1fr;}
+  }
+  @media (max-width:600px){
+    .why-grid{grid-template-columns:1fr;}
+    .program-head{flex-direction:column;align-items:flex-start;gap:6px;}
+    .framework-box{padding:26px 20px;}
+    .framework-table td, .framework-table th{padding:10px 10px;font-size:12.5px;}
+    .framework-table td.label{width:auto;}
+  }
+
+  /* LOGO NELL'HERO */
+  .hero-logo{width:64px;height:64px;border-radius:50%;background:#fff;padding:4px;object-fit:contain;display:block;margin:0 auto 20px;box-shadow:0 4px 14px rgba(0,0,0,0.25);}
+
+  /* TAB SWITCHER */
+  .tab-switcher{position:sticky;top:0;z-index:40;height:56px;background:var(--green-dark);display:flex;align-items:center;justify-content:center;gap:10px;padding:0 16px;box-shadow:0 2px 12px rgba(0,0,0,0.18);}
+  .tab-btn{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:rgba(255,255,255,0.75);background:transparent;border:1.5px solid rgba(255,255,255,0.28);padding:9px 22px;border-radius:24px;cursor:pointer;transition:background .2s ease, color .2s ease, border-color .2s ease;white-space:nowrap;}
+  .tab-btn:hover{color:#fff;border-color:rgba(255,255,255,0.55);}
+  .tab-btn.active{background:var(--green-light);color:var(--green-dark);border-color:var(--green-light);}
+  @media (max-width:480px){ .tab-btn{padding:8px 14px;font-size:12.5px;} }
+
+  /* PANNELLI TAB */
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+
+  /* stili di supporto ereditati dalla pagina Piattaforme (Tailwind + queste regole extra) */
+  .lead{font-size:1.0625rem;line-height:1.7;}
+  :focus-visible{outline:3px solid #4caf50;outline-offset:2px;}
+  @media (prefers-reduced-motion: reduce){ *{animation:none!important;transition:none!important;} }
+  @media print{
+    .hero, .tab-switcher, .page-nav, .back-to-top{display:none!important;}
+    .no-print{display:none!important;}
+    section, div{break-inside:avoid;}
+  }
+
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-shapes-back">
+    <div class="shape-rect float-a" style="position:absolute;"></div>
+    <div class="shape-circle float-b" style="position:absolute;"></div>
+  </div>
+  <div class="hero-shapes-mid">
+    <div class="shape-diamond float-c" style="position:absolute;"></div>
+    <div class="shape-dot float-a" style="position:absolute;"></div>
+  </div>
+  <div class="hero-content">
+    <img src="data:image/png;base64,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" alt="Logo IIS Gregorio Mendel" class="hero-logo"
+                     onerror="this.style.display='none'">
+    <div class="hero-eyebrow">Corso base per docenti · IIS Gregorio Mendel</div>
+    <h1 class="hero-title">Intelligenza Artificiale a scuola</h1>
+    <p class="hero-subtitle">Un percorso pratico di 4 incontri (8 ore totali, concentrate in circa un mese) per capire cos'è l'IA e usarla in classe con consapevolezza e senza paura — con Gemini, NotebookLM e Claude, dentro gli strumenti Workspace già a disposizione della scuola. L'obiettivo: un vero "assistente alla cattedra" che fa risparmiare ore su verifiche, griglie e scartoffie.</p>
+    <a href="#programma" class="btn-primary">Scopri il programma</a>
+  </div>
+  <div class="scroll-indicator">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+</section>
+
+<div class="tab-switcher">
+  <button type="button" class="tab-btn active" data-tab="corso">&#128218; Corso base IA</button>
+  <button type="button" class="tab-btn" data-tab="piattaforme">&#128421;&#65039; Piattaforme didattiche</button>
+</div>
+
+<div id="tab-corso" class="tab-panel active">
+<div class="info-strip">
+  <b>4 incontri da 2 ore</b> (8 ore totali) &nbsp;·&nbsp; <b>Fine settembre – ottobre</b>
+</div>
+
+<nav class="page-nav" style="top:56px;">
+  <a href="#perche">Perché</a>
+  <a href="#programma">Programma</a>
+  <a href="#esempi">Esempi in classe</a>
+  <a href="#metodologie">Metodologie</a>
+  <a href="#prompts">Libreria prompt</a>
+  <a href="#glossario">Glossario</a>
+  <a href="#bibliografia">Bibliografia</a>
+</nav>
+
+<section class="why-section" id="perche">
+  <h2 class="section-headline">Perché questo corso</h2>
+  <p class="section-sub">Non un corso tecnico: un percorso pensato per chi non ha mai usato l'IA in classe, o l'ha guardata con diffidenza. Come un trattore per l'agricoltore: uno strumento in più, non un sostituto.</p>
+  <div class="why-grid">
+    <div class="why-card">
+      <svg class="why-icon" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      <div class="why-title">Niente da temere</div>
+      <div class="why-desc">Capiremo cos'è davvero un chatbot, cosa sa fare bene e dove sbaglia — senza mistificazioni.</div>
+    </div>
+    <div class="why-card">
+      <svg class="why-icon" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12h8M8 16h5"/></svg>
+      <div class="why-title">Regole chiare</div>
+      <div class="why-desc">Come si applica il Regolamento IA della scuola, e cosa significa in pratica per privacy e uso in classe, sempre con account @agrariomendel.edu.it.</div>
+    </div>
+    <div class="why-card">
+      <svg class="why-icon" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="1.6"><path d="M12 3v18M3 12h18"/></svg>
+      <div class="why-title">Esempi veri</div>
+      <div class="why-desc">Prompt pronti per verifiche, lezioni e materiali, applicabili a qualsiasi materia — non solo teoria.</div>
+    </div>
+    <div class="why-card">
+      <svg class="why-icon" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="1.6"><path d="M4 20l5-11 4 7 3-5 4 9H4z"/></svg>
+      <div class="why-title">Pensato per l'agrario</div>
+      <div class="why-desc">Dati meteo in Agronomia, sensori in Zootecnia, business plan in Estimo: l'IA applicata al nostro indirizzo tecnico.</div>
+    </div>
+  </div>
+</section>
+
+<section class="program" id="programma">
+  <h2 class="section-headline">Il programma</h2>
+  <p class="section-sub">4 incontri da 2 ore ciascuno (8 ore totali), in sequenza settimanale tra fine settembre e ottobre. Ogni incontro corrisponde a un modulo di 5 lezioni, con laboratorio e checkpoint finale.</p>
+  <div class="program-list">
+    <div class="program-item">
+      <div class="program-num">1</div>
+      <div style="flex:1;">
+        <div class="program-head">
+          <div class="program-title">Capire — che cos'è davvero l'IA</div>
+          <div class="program-week">Incontro 1 · Modulo 1</div>
+        </div>
+        <div class="program-desc">Come funziona un chatbot in parole semplici, cosa sa fare bene e cosa fa male, le paure più comuni con risposte concrete. Primo contatto guidato con gli strumenti.</div>
+        <ul class="program-bullets">
+          <li>1.1 Il gioco della parola successiva · 1.2 Tre parole per orientarsi</li>
+          <li>1.3 Cosa sa fare bene e cosa fa male · 1.4 Panoramica degli strumenti</li>
+          <li>1.5 Lab: primo contatto con Gemini · Checkpoint 1</li>
+        </ul>
+      </div>
+    </div>
+    <div class="program-item">
+      <div class="program-num">2</div>
+      <div style="flex:1;">
+        <div class="program-head">
+          <div class="program-title">Parlare — il prompt come competenza didattica</div>
+          <div class="program-week">Incontro 2 · Modulo 2</div>
+        </div>
+        <div class="program-desc">Scrivere un'istruzione efficace è la competenza che fa la differenza. I framework R.C.C.V., C.R.E.A. e C.R.A.F.T., le cinque tecniche, l'iterazione.</div>
+        <ul class="program-bullets">
+          <li>2.1 Prompt povero, risultati poveri · 2.2 Lo schema a cinque componenti</li>
+          <li>2.3 Le cinque tecniche · 2.4 Iterare</li>
+          <li>2.5 Lab: costruisci il tuo prompt · Checkpoint 2</li>
+        </ul>
+      </div>
+    </div>
+    <div class="program-item">
+      <div class="program-num">3</div>
+      <div style="flex:1;">
+        <div class="program-head">
+          <div class="program-title">Controllare — affidabilità, privacy, norme</div>
+          <div class="program-week">Incontro 3 · Modulo 3</div>
+        </div>
+        <div class="program-desc">Le allucinazioni e come riconoscerle, il protocollo dei tre controlli, i bias, e il quadro normativo: Regolamento IA d'Istituto, Linee Guida MIM, AI Act.</div>
+        <ul class="program-bullets">
+          <li>3.1 Anatomia di un'allucinazione · 3.2 Il protocollo dei tre controlli</li>
+          <li>3.3 Bias e rappresentazione · 3.4 Privacy, dati, AI Act</li>
+          <li>3.5 Lab: caccia all'errore · Checkpoint 3 (quiz)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="program-item">
+      <div class="program-num">4</div>
+      <div style="flex:1;">
+        <div class="program-head">
+          <div class="program-title">Insegnare — progettare con l'IA</div>
+          <div class="program-week">Incontro 4 · Modulo 4</div>
+        </div>
+        <div class="program-desc">Dall'IA come strumento personale all'IA in classe: gli usi che fanno risparmiare tempo, il patto d'aula, le consegne a prova di IA, e il laboratorio sulle piattaforme didattiche selezionate per la scuola (MagicSchool, Teachy, Brisk, SchoolAI).</div>
+        <ul class="program-bullets">
+          <li>4.1 I dieci usi che fanno risparmiare tempo · 4.2 Dal divieto al patto d'aula</li>
+          <li>4.3 Consegne a prova di IA · 4.4 Project work: il Kit, con le piattaforme didattiche</li>
+          <li>4.5 Autovalutazione e chiusura</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="external-cta">
+    <div class="external-cta-text">
+      <span class="external-cta-badge">Materiale del corso</span>
+      <div class="external-cta-title">Le 20 lezioni, scheda per scheda</div>
+      <div class="external-cta-desc">Per ciascuna lezione: la frase da fissare, le definizioni in linguaggio non tecnico, gli esempi svolti in quattro aree disciplinari (con i prompt pronti da copiare) e le domande su cui lavorare insieme.</div>
+    </div>
+    <a href="corso-ia-lezioni.html" class="external-cta-btn">Vai alle lezioni →</a>
+  </div>
+</section>
+
+<section class="examples-section" id="esempi">
+  <h2 class="section-headline">Esempi pratici per la classe</h2>
+  <p class="section-sub">Alcuni modi concreti in cui l'IA può entrare nelle lezioni, dal biennio agli indirizzi tecnici.</p>
+  <div class="examples-grid">
+    <div class="example-card">
+      <span class="example-tag">Biennio</span>
+      <div class="example-title">🗣️ Revisione critica in Inglese</div>
+      <div class="example-desc">Invece di vietare i traduttori, si chiede all'IA di tradurre un testo tecnico. La classe lavora sulla revisione: cerca "allucinazioni" e analizza lingua e tempi verbali scelti dall'algoritmo.</div>
+    </div>
+    <div class="example-card">
+      <span class="example-tag">Agronomia</span>
+      <div class="example-title">🚁 Droni e dati multispettrali</div>
+      <div class="example-desc">Si forniscono dati reali di sensori in un campo. Con l'IA (es. inserendo i dati Excel in un prompt) si "leggono" le informazioni evidenziando le zone con stress idrico.</div>
+    </div>
+    <div class="example-card">
+      <span class="example-tag">Zootecnia</span>
+      <div class="example-title">🐄 Sensori e benessere animale</div>
+      <div class="example-desc">Case study su collari smart: si analizzano con l'IA i dati di ruminazione per prevedere malattie cliniche prima che si manifestino (Precision Livestock Farming).</div>
+    </div>
+    <div class="example-card">
+      <span class="example-tag">Economia / Estimo</span>
+      <div class="example-title">📈 Business plan assistito</div>
+      <div class="example-desc">Gli studenti progettano una startup, usando l'IA come copilota per brainstorming sul mercato locale, packaging sostenibile e analisi dei competitor a Km0.</div>
+    </div>
+  </div>
+</section>
+
+<section class="method-section" id="metodologie">
+  <h2 class="section-headline">Le metodologie didattiche potenziate dall'IA</h2>
+  <p class="section-sub">Non solo prompt isolati: come l'intelligenza artificiale entra dentro le metodologie attive che già usiamo, cambiando ruolo a seconda della fase della lezione.</p>
+
+  <div class="method-intro-box">
+    L'integrazione dell'intelligenza artificiale nelle metodologie didattiche consolidate rappresenta oggi la risposta più incisiva alla crisi del modello trasmissivo tradizionale. In un'epoca in cui le nuove generazioni sono cresciute immerse nell'interattività, la classica lezione frontale basata sull'ascolto passivo risulta spesso inefficace nel mantenere l'attenzione degli studenti. L'IA agisce quindi come un catalizzatore antropologico e tecnologico, capace di trasformare la didattica in un'esperienza dinamica in grado di intercettare realmente l'interesse dei discenti, soprattutto se l'IA viene utilizzata in classe come "tecnologia del discente". Fare utilizzare l'intelligenza artificiale agli studenti significa trasformarli da fruitori passivi di contenuti a protagonisti attivi del proprio processo di apprendimento, per renderli capaci di "usare" le conoscenze e gli strumenti tecnologici invece di limitarsi a "riceverli dal docente". L'IA come tecnologia del discente sposta il baricentro didattico verso l'applicazione pratica e la ricerca e permette allo studente di collocarsi nel ruolo di ricercatore che, supportato dal docente nel ruolo di mentore, utilizza l'IA per indagare, formulare ipotesi e produrre artefatti originali.
+  </div>
+
+  <div class="method-list">
+
+    <details class="method-card">
+      <summary><span class="m-tag">1.1</span><span class="m-name">Flipped Learning 4.0: dall'azione al pensiero critico</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="method-body">
+        <p>Una delle evoluzioni più significative è la Flipped Learning 4.0, che espande il concetto di "classe capovolta" integrando le tecnologie dell'Industria 4.0, come Big Data, IoT e Realtà Aumentata. In questo modello, lo studio teorico avviene in autonomia attraverso materiali digitali, spesso selezionati o personalizzati dall'IA per adattarsi alle necessità del singolo studente, rendendo l'apprendimento individuale più mirato e meno faticoso.</p>
+        <p>Il tempo in classe, liberato dalla spiegazione unidirezionale, viene interamente dedicato al dibattito critico e al lavoro cooperativo. L'aula si trasforma così in un laboratorio dinamico dove l'interazione uomo-macchina favorisce non solo il problem-solving, ma soprattutto il problem-posing: gli studenti imparano a interrogare il sistema per identificare problemi e nuovi percorsi prima ancora di doverli risolvere.</p>
+        <div class="method-prompt">
+          <b>Prompt — docente Mendel, classe terza agrario</b>
+          Ruolo: sei un tutor di agronomia che prepara materiale per lo studio autonomo a casa. Contesto: classe terza, indirizzo agrario, argomento "rotazione delle colture", da affrontare prima della lezione in presenza. Compito: genera una scheda di studio di una pagina con 3 domande-stimolo che gli studenti dovranno portare in classe già formulate, non risolte — domande che aprano un dibattito, non che richiedano una risposta chiusa. Vincoli: linguaggio semplice, nessun tecnicismo non spiegato, invita esplicitamente lo studente a scrivere anche una domanda propria a cui l'IA non ha saputo rispondere.
+        </div>
+        <div class="method-prompt-alt">
+          <b>Secondo esempio</b>
+          Agisci come un tutor esperto di didattica. Crea un testo di livello B1 sull'impatto dei cambiamenti climatici sulle coltivazioni agricole, includendo un glossario tecnico di 10 parole e tre domande di comprensione logica. Il testo mi servirà come materiale di studio autonomo per gli studenti in vista della prossima lezione.
+        </div>
+      </div>
+    </details>
+
+    <details class="method-card">
+      <summary><span class="m-tag">1.2</span><span class="m-name">Il Debate e l'IA come "avvocato del diavolo"</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="method-body">
+        <p>Il Debate (dibattito regolamentato) viene potenziato dall'IA attraverso la figura dell'"avvocato del diavolo" algoritmico. La macchina, istruita per difendere tesi opposte a quelle degli studenti, offre contro-argomentazioni logiche in tempo reale, costringendo i ragazzi a strutturare i propri ragionamenti con estremo rigore. Questa interazione risponde alla forma mentis dei giovani, che preferiscono "vivere" il confronto piuttosto che ascoltare una spiegazione teorica su pro e contro di un argomento.</p>
+        <p>Tuttavia, l'efficacia di questa pratica richiede un'attenta supervisione del docente, che deve monitorare le fonti citate dall'IA per evitare "allucinazioni" algoritmiche e garantire che il digital divide non penalizzi gli studenti con minor accesso alle tecnologie domestiche. In questo senso, il Debate non è solo una sfida intellettuale, ma una vera palestra di democrazia ed educazione all'ascolto critico.</p>
+        <div class="method-prompt">
+          <b>Prompt — docente Mendel, classe quinta</b>
+          Ruolo: agisci come avvocato del diavolo in un debate scolastico. Contesto: classe quinta agraria, tema in discussione "l'agricoltura biologica è più sostenibile di quella intensiva su larga scala". Gli studenti sostengono la tesi favorevole al biologico. Compito: costruisci 4 contro-argomentazioni solide e realistiche alla loro tesi, basate su dati verificabili (rese produttive, costi, impatto su scala globale), non su opinioni. Vincoli: cita sempre la tipologia di fonte a cui ti stai riferendo così che io possa verificarla con la classe; non inventare statistiche; mantieni un tono provocatorio ma rispettoso, adatto a 18enni.
+        </div>
+      </div>
+    </details>
+
+    <details class="method-card">
+      <summary><span class="m-tag">1.3A</span><span class="m-name">Apprendimento Cooperativo e Jigsaw</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="method-body">
+        <p>L'integrazione dell'Intelligenza Artificiale (IA) con l'apprendimento cooperativo e la tecnica del Jigsaw (il "gioco a incastro" ideato da Aronson negli anni '70, dove ogni studente approfondisce una parte/tessera di un argomento e la insegna ai compagni per completare l'apprendimento collettivo) può trasformare radicalmente l'esperienza didattica in aula. L'IA non sostituisce il gruppo, ma funge da moltiplicatore di risorse e da "tutor ombra" per ogni studente.</p>
+        <h4>1. Fase Preparatoria: l'IA come "Designer" della lezione</h4>
+        <p>Prima che gli studenti inizino l'attività, il docente usa l'IA (tramite Prompt Engineering) per dividere il tema principale e chiedere all'IA di scomporre un argomento complesso (es. la crisi climatica) in 4-5 sotto-temi di pari difficoltà e ampiezza per i "gruppi tecnici" che poi formerà con gli studenti. Si può utilizzare l'IA per creare materiali differenziati: generare dispense specifiche per ogni sotto-tema calibrate sul livello di lettura della classe, e per generare Alt-text e descrizioni audio accessibili per gli studenti non vedenti o con DSA all'interno dei materiali del Jigsaw.</p>
+        <h4>2. Il gruppo tecnico (Expert Group): l'IA come ricercatore</h4>
+        <p>Nel Jigsaw, gli "esperti" di un sotto-tema si riuniscono per studiare. Qui l'IA diventa un supporto critico per verificare le fonti o per riassumere testi complessi e spiegare concetti ostici in termini semplici. Il gruppo può utilizzare l'IA per generare schemi o creare mappe concettuali dei punti chiave del rispettivo sotto-tema assegnato e per assicurarsi di non aver dimenticato nulla. Gli studenti vengono istruiti a "sfidare" l'IA con il processo del fact-checking, verificando se le informazioni fornite coincidono con i libri di testo (sviluppando pensiero critico).</p>
+        <h4>3. Il gruppo base (Home Group): l'IA come supporto alla divulgazione</h4>
+        <p>Quando gli esperti tornano nel gruppo originale per insegnare ai compagni il proprio segmento di argomento studiato, possono utilizzare l'IA come supporto alla spiegazione grazie alla funzione generativa di immagini per creare un'infografica o un'immagine metaforica che aiuti i compagni a visualizzare e concettualizzare l'idea. In classi multilingue, l'IA può tradurre in tempo reale le spiegazioni dell'esperto per i compagni NAI (Neo Arrivati in Italia).</p>
+        <h4>4. Valutazione Aumentata (conclusione)</h4>
+        <p>Invece del classico test individuale, l'IA può abilitare una valutazione più ricca attraverso il peer-feedback assistito: gli studenti caricano una sintesi del loro lavoro di gruppo e l'IA suggerisce punti di forza e aree di miglioramento basandosi su una rubrica valutativa fornita dal docente, oppure attraverso quiz adattivi sempre creati dal docente sul livello di apprendimento mostrato da ogni studente durante l'attività cooperativa.</p>
+        <table class="method-table">
+          <tr><th>Fase Jigsaw</th><th>Ruolo dell'IA</th><th>Vantaggio per lo studente</th></tr>
+          <tr><td>Pianificazione</td><td>Scomposizione argomenti</td><td>Materiali pronti e bilanciati</td></tr>
+          <tr><td>Gruppo Esperti</td><td>Tutor e analista dati</td><td>Comprensione profonda e rapida</td></tr>
+          <tr><td>Gruppo Casa</td><td>Facilitatore comunicativo</td><td>Spiegazioni più chiare con media digitali</td></tr>
+          <tr><td>Valutazione</td><td>Analisi dei feedback</td><td>Consapevolezza immediata dei progressi</td></tr>
+        </table>
+        <div class="method-prompt">
+          <b>Prompt — docente Mendel, fase preparatoria, classe seconda</b>
+          Ruolo: sei un progettista didattico esperto in Jigsaw. Contesto: classe seconda dell'istituto agrario, argomento macro "il ciclo dell'azoto in agricoltura", livello B1 di comprensione del testo tecnico. Compito: scomponi l'argomento in 5 sotto-temi di pari difficoltà e ampiezza, adatti a formare 5 gruppi tecnici. Per ciascuno, scrivi una dispensa di massimo mezza pagina calibrata sul livello della classe. Vincoli: nessun sotto-tema deve richiedere conoscenze pregresse non ancora affrontate in classe; includi per ogni dispensa un suggerimento di alt-text per un'eventuale immagine di supporto, pensando a studenti con DSA.
+        </div>
+        <div class="method-prompt-alt">
+          <b>Secondo esempio</b>
+          Voglio organizzare un'attività Jigsaw sulla "Gestione sostenibile delle risorse idriche". Suddividi questo macro-argomento in 4 sotto-temi di uguale complessità e genera per ciascuno un breve riassunto accessibile a studenti di scuola superiore, evidenziando i concetti chiave.
+        </div>
+      </div>
+    </details>
+
+    <details class="method-card">
+      <summary><span class="m-tag">1.3B</span><span class="m-name">Problem-Based Learning e Inquiry-Based Learning</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="method-body">
+        <p>L'integrazione dell'Intelligenza Artificiale nelle metodologie induttive come il Problem-Based Learning (PBL) e l'Inquiry-Based Learning (IBL) sposta il ruolo dell'IA da semplice "motore di risposte" a "impalcatura cognitiva" (scaffolding). In entrambi i modelli, l'obiettivo non è ricevere la soluzione dall'IA, ma usarla per esplorare la complessità.</p>
+        <h4>1. Problem-Based Learning (PBL) + IA</h4>
+        <p>Nel PBL, gli studenti partono da un problema reale, spesso disordinato e complesso (ill-structured) e nella fase dell'analisi (brainstorming) possono usare l'IA come una sorta di "provocatore". Esempio di prompt: "Abbiamo ipotizzato queste 3 cause per l'inquinamento del fiume locale. Agisci come un critico ambientale e trova i punti deboli nel nostro ragionamento". L'IA può anche agire come un simulatore di scenari: se il problema analizzato riguarda l'urbanistica, gli studenti possono inserire i loro dati in un modello oppure chiedere all'IA di prevedere le conseguenze di una scelta per vedere come cambia il sistema nel tempo. L'IA può anche essere considerata un aiuto per suddividere e scomporre il problema macro in sotto-problemi gestibili, suggerendo protocolli di ricerca o variabili da monitorare.</p>
+        <h4>2. Inquiry-Based Learning (IBL) + IA</h4>
+        <p>L'IBL si basa sulla curiosità e sul porre domande (Inquiry). Qui l'IA accelera il ciclo di investigazione e offre agli studenti, attraverso la funzione di prompting, un'ottima occasione per imparare a formulare e porre domande pertinenti, passando da una domanda generica a una scientificamente testabile.</p>
+        <table class="method-table">
+          <tr><th>Metodologia</th><th>Ruolo primario dell'IA</th><th>Esempio pratico</th></tr>
+          <tr><td>PBL</td><td>Collaboratore strategico</td><td>L'IA agisce come un portatore di interesse (stakeholder) che pone vincoli di budget o etici al progetto degli studenti</td></tr>
+          <tr><td>IBL</td><td>Acceleratore di ricerca</td><td>L'IA aiuta a raffinare le domande di ricerca, passando da una domanda generica a una scientificamente testabile</td></tr>
+        </table>
+        <h4>3. Il rischio: l'IA "risolutrice" vs "abilitatrice"</h4>
+        <p>Il pericolo maggiore in queste metodologie è che l'IA fornisca la soluzione troppo presto, annullando lo sforzo cognitivo. Per evitarlo, il docente deve impostare Prompt di Vincolo — una tecnica di prompt engineering che consiste nell'aggiungere istruzioni specifiche, regole, limiti o negazioni a una richiesta rivolta a un'intelligenza artificiale generativa per circoscrivere lo spazio delle risposte possibili. Invece di chiedere all'IA "risolvi questo problema", è necessario specificare nel prompt la richiesta di non fornire la soluzione, ma di agire come un mentore che faccia domande utili a identificare i dati mancanti per risolvere il caso.</p>
+        <h4>4. Valutazione aumentata nei processi</h4>
+        <p>Poiché PBL e IBL si basano sul processo, l'IA può monitorare il diario di bordo digitale del gruppo, analizzando come si è evoluta la loro comprensione nel corso del tempo di studio. Questa sorta di "storyboard dell'apprendimento" fornisce al docente una mappa del pensiero e del percorso svolto dalla classe, non solo il prodotto finale.</p>
+        <div class="method-prompt">
+          <b>Prompt — docente Mendel, PBL, classe quarta</b>
+          Ruolo: agisci come mentore socratico, MAI come risolutore. Contesto: classe quarta, PBL sul problema reale "gestione idrica di un vigneto in un'annata siccitosa", gli studenti hanno proposto un primo piano d'azione. Compito: non fornire la soluzione né correggere direttamente il piano. Fai invece 4 domande mirate che li aiutino a individuare quali dati stanno ancora dando per scontati (es. portata della falda, costi dell'irrigazione a goccia) prima di poter validare la loro proposta. Vincoli: nessuna risposta diretta, solo domande; tono da mentore, non da esaminatore.
+        </div>
+        <div class="method-prompt-alt">
+          <b>Secondo esempio</b>
+          Simula di essere un amministratore locale. I miei studenti ti proporranno un progetto per riqualificare un'area verde del comune. Fai loro due domande critiche sui vincoli di budget e sulla manutenzione futura per farli riflettere. Regola fondamentale: non suggerire tu le soluzioni, limitati a far emergere le criticità.
+        </div>
+      </div>
+    </details>
+
+    <details class="method-card">
+      <summary><span class="m-tag">1.3C</span><span class="m-name">Case-Based Learning</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="method-body">
+        <p>L'integrazione dell'IA nel Case-Based Learning (CBL) è forse una delle più naturali e potenti applicazioni strumentali, perché il CBL si basa sull'analisi di scenari realistici e l'IA eccelle nel generare, simulare e modificare contesti complessi.</p>
+        <h4>1. Generazione di "casi dinamici" e personalizzati</h4>
+        <p>Tradizionalmente, i docenti usano casi di studio statici (fogli di carta o PDF). Con l'IA è possibile creare varianti infinite partendo da un caso standard, chiedendo di generare "varianti di disturbo" (es. "Aggiungi una complicazione tecnica all'esperimento scientifico" o "Inserisci una fonte specifica al periodo storico analizzato"). L'IA permette anche di adattare le difficoltà declinando lo stesso caso per diversi livelli di competenza (es. versione base per il primo anno, versione avanzata per l'ultimo).</p>
+        <h4>2. L'IA come "personaggio" del caso (Role-Play)</h4>
+        <p>Questa è l'applicazione più coinvolgente dell'IA nella CBL. Invece di leggere il caso, gli studenti interagiscono con esso intervistando l'interlocutore. Lo studente può "intervistare" l'IA che interpreta il ruolo dello scienziato artefice dell'esperimento o del testimone o protagonista storico. Se il caso riguarda una trattativa, l'IA può agire come la controparte, reagendo in modo realistico alle proposte degli studenti.</p>
+        <h4>3. Supporto all'analisi e al decision making</h4>
+        <p>Durante lo studio del caso, l'IA funge da assistente analitico dei dati grezzi. Se il caso include bilanci, dati scientifici o documenti storici complessi, l'IA può aiutare gli studenti a estrarre rapidamente i dati chiave e analizzarne le conseguenze. Quando, al termine dello studio, gli studenti propongono una soluzione, possono chiedere all'IA di prevedere l'impatto delle decisioni da loro intraprese, piuttosto che delle soluzioni previste in un range di tempo variabile.</p>
+        <h4>4. Valutazione aumentata nel CBL</h4>
+        <p>L'IA permette di valutare non solo la risposta "giusta" o la soluzione proposta, ma il percorso decisionale analizzando la presenza di eventuali bias e quindi pregiudizi cognitivi o lacune logiche. Il sistema di Intelligenza Artificiale può anche offrire un'occasione per confrontare la soluzione dello studente con quella di un esperto del settore, evidenziando le differenze di approccio.</p>
+        <table class="method-table">
+          <tr><th>Fase del CBL</th><th>Azione dell'IA</th><th>Risultato per lo studente</th></tr>
+          <tr><td>Presentazione</td><td>Genera un video o un'immagine del caso</td><td>Immersione; il caso diventa "reale" e visivo</td></tr>
+          <tr><td>Investigazione</td><td>Fornisce "indizi" solo se interrogata correttamente</td><td>Active Learning: lo studente deve saper chiedere</td></tr>
+          <tr><td>Risoluzione</td><td>Valuta la fattibilità della soluzione proposta</td><td>Feedback Iterativo: si impara dall'errore immediato</td></tr>
+          <tr><td>Riflessione</td><td>Genera un caso speculare per testare il transfer</td><td>Generalizzazione: applicare la logica a un nuovo contesto</td></tr>
+        </table>
+        <div class="method-prompt">
+          <b>Prompt — docente Mendel, CBL, role-play, classe terza</b>
+          Ruolo: interpreta un agronomo che sta gestendo un'infestazione di parassiti in un frutteto biologico, con dati reali plausibili su rese e trattamenti disponibili. Contesto: classe terza, gli studenti dovranno intervistarti in gruppo per raccogliere informazioni e proporre una soluzione. Compito: rispondi solo alle domande che ti vengono poste, senza anticipare la soluzione, e fornisci indizi realistici solo se la domanda è formulata correttamente e specifica. Vincoli: mantieni coerenza nei dati per tutta l'interazione, non contraddirti; se una domanda è vaga, chiedi tu stesso di essere più precisi invece di rispondere genericamente.
+        </div>
+        <div class="method-prompt-alt">
+          <b>Secondo esempio</b>
+          Scrivi un caso di studio su un'azienda agricola che deve decidere se investire in macchinari per l'agricoltura di precisione. Inserisci una "variabile di disturbo" legata a un improvviso taglio dei fondi europei, descrivendo la situazione di partenza senza però svelare la decisione finale.
+        </div>
+      </div>
+    </details>
+
+    <details class="method-card">
+      <summary><span class="m-tag">1.3D</span><span class="m-name">Think-Pair-Share</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="method-body">
+        <p>L'integrazione dell'IA nella metodologia Think-Pair-Share (TPS) trasforma una tecnica di discussione classica in un'esperienza di "intelligenza aumentata". La Think-Pair-Share (Pensa-Coppia-Condividi) è una strategia di apprendimento cooperativo strutturata in tre fasi, ideata per promuovere la partecipazione attiva e il pensiero critico: gli studenti riflettono individualmente su una domanda (Think), discutono le idee in coppia (Pair) e infine condividono i risultati con l'intera classe (Share). In questo schema, l'IA non interviene solo come fonte di informazioni, ma come un terzo elemento dialettico che stimola la riflessione e raffina il confronto.</p>
+        <h4>1. Fase THINK (riflessione individuale)</h4>
+        <p>In questa fase, lo studente lavora da solo. L'IA funge da scaffolding (impalcatura) per chi ha difficoltà a iniziare o da sfidante per chi è più avanzato. Lo studente interagisce con l'IA nel ruolo di tutor mentore chiedendo: "sto pensando a questa soluzione per il problema X, quali sono i punti deboli del mio ragionamento?". Se lo studente è bloccato, l'IA può generare "spunti" come parole chiave o un'immagine per innescare l'ispirazione senza dare la soluzione completa. Gli studenti con bisogni educativi speciali possono usare l'IA per tradurre il testo del problema o semplificarne il linguaggio, garantendo che tutti partano dalla stessa base di comprensione.</p>
+        <h4>2. Fase PAIR (confronto a coppie)</h4>
+        <p>In questa fase, gli studenti in coppie confrontano le proprie idee. L'IA entra nel "dialogo" come un arbitro neutrale o una fonte di dati. L'IA può svolgere la funzione di fact-checking in tempo reale e, se due studenti hanno opinioni contrastanti su un dato oggettivo, possono interrogare l'IA per verificare le fonti. La coppia può dettare le proprie (diverse) opinioni all'IA e chiedere una sintesi delle divergenze: "trova un punto di incontro tra queste due visioni" oppure "evidenzia la differenza logica principale tra queste due tesi". In sostanza, l'IA svolge il ruolo del terzo incomodo per provare a smontare le diverse soluzioni proposte dagli studenti agendo come un critico severo. Questo evita il "pensiero di gruppo", inteso come groupthink, ovvero quel fenomeno psicologico in cui la ricerca del consenso e dell'armonia in un gruppo coeso prevale sul pensiero critico, portando a decisioni irrazionali o disfunzionali, per stimolare una riflessione più profonda.</p>
+        <h4>3. Fase SHARE (condivisione in plenaria)</h4>
+        <p>Nella fase finale, la coppia di studenti condivide i risultati con la classe e l'IA può diventare un ausilio per formalizzare e visualizzare il lavoro. Mentre la coppia espone, l'IA può generare in tempo reale una mappa concettuale o un'infografica che rappresenti la loro idea principale. Il docente può raccogliere le conclusioni di tutte le coppie in un unico documento e chiedere all'IA di identificare i pattern comuni o le idee più originali emerse nella classe per poi visionarle e valutarle in plenaria. L'IA può fornire un feedback immediato agli studenti sulla qualità della presentazione, suggerendo come migliorare l'esposizione o quali argomenti meritano un approfondimento ulteriore prima della restituzione a tutta la classe e al docente.</p>
+        <p>Per evitare che l'IA "rubi la scena" al pensiero critico individuale e di classe, il docente può stabilire una regola chiara, ovvero che l'IA può essere consultata solo successivamente a un tempo di riflessione autonoma nella fase Think. In questo modo, si protegge lo sforzo cognitivo individuale e del gruppo classe pur offrendo supporto tecnologico.</p>
+        <table class="method-table">
+          <tr><th>Azione</th><th>Tradizionale</th><th>Integrazione IA (Aumentata)</th></tr>
+          <tr><td>Think</td><td>Lo studente pensa da solo</td><td>L'IA agisce come specchio cognitivo (Socratic Tutor)</td></tr>
+          <tr><td>Pair</td><td>Confronto con il compagno</td><td>L'IA fornisce dati, verifica fatti e stimola il dibattito</td></tr>
+          <tr><td>Share</td><td>Esposizione alla classe</td><td>L'IA sintetizza, visualizza e formalizza l'output</td></tr>
+        </table>
+        <div class="method-prompt">
+          <b>Prompt — docente Mendel, fase Pair, classe seconda</b>
+          Ruolo: agisci come arbitro neutrale ed esperto di fact-checking. Contesto: due studenti di classe seconda hanno opinioni diverse su quale sia il metodo più efficace per il controllo biologico degli afidi in serra. Compito: verifica quali affermazioni di entrambi sono supportate da evidenze agronomiche solide, segnala quelle inesatte, e proponi una sintesi che evidenzi il punto di incontro reale tra le due posizioni, non un compromesso di facciata. Vincoli: se i dati sono insufficienti per arbitrare, dillo chiaramente invece di inventare una risposta.
+        </div>
+        <div class="method-prompt-alt">
+          <b>Secondo esempio</b>
+          Siamo nella fase "Pair" di un dibattito. Due studenti hanno opinioni divergenti sui vantaggi dell'energia nucleare di nuova generazione. Analizza queste due argomentazioni [inserire testo 1 e testo 2] ed evidenzia la divergenza logica principale, suggerendo poi un possibile punto di compromesso.
+        </div>
+      </div>
+    </details>
+
+    <details class="method-card">
+      <summary><span class="m-tag">1.3E</span><span class="m-name">La Gallery Walk per la valutazione tra pari</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="method-body">
+        <p>L'integrazione dell'Intelligenza Artificiale nella Gallery Walk (la "passeggiata in galleria" è una tecnica didattica e collaborativa attiva, in cui i partecipanti girano per la stanza osservando materiali esposti — post-it, poster, grafici — in diverse postazioni, analizzando, discutendo e fornendo feedback scritti su vari argomenti) trasforma una metodologia dinamica e visuale in un potente esercizio di valutazione tra pari (peer assessment) assistita. Nella Gallery Walk tradizionale, gli studenti espongono i propri lavori (poster, schemi, prototipi) sulle pareti dell'aula e i compagni girano per osservare e lasciare feedback. L'IA "aumenta" questo processo rendendo il feedback più tecnico, immediato e profondo.</p>
+        <h4>1. Preparazione e visita della galleria: l'IA come "curatore" della galleria</h4>
+        <p>Insieme al docente, gli studenti devono preparare e condividere una rubrica valutativa da utilizzare per la fase espositiva. Prima della "camminata", gli studenti possono usare l'IA per raffinare ciò che esporranno, revisionando la pre-esposizione. Ogni gruppo carica la bozza del proprio lavoro nel sistema IA chiedendo di analizzare il proprio prodotto sulla base della rubrica di valutazione condivisa e verificare cosa manca per essere chiari ed efficaci. Se il prodotto da esporre è concettuale, possono usare i sistemi IA per creare immagini d'impatto o infografiche che sintetizzino il loro messaggio chiave, rendendo la "galleria" più stimolante, oltreché più accessibile e significativa per tutti. Se in classe ci sono studenti NAI (Neo Arrivati in Italia), possono fotografare il poster dei compagni e usare l'IA per tradurlo istantaneamente o per farsi spiegare i concetti difficili nella loro lingua madre prima di lasciare un commento.</p>
+        <h4>2. Fase di Sintesi: l'IA come "sintetizzatore di gruppo"</h4>
+        <p>Dopo il giro, ogni gruppo torna al proprio poster dove troverà i post-it (o i commenti digitali) dei compagni e potrà utilizzare l'IA come tecnica di clustering (il raggruppamento di un insieme di elementi in sottogruppi, chiamati cluster), ovvero di analisi dei dati. Il gruppo inserisce tutti i commenti ricevuti nell'IA e chiede di riassumere i feedback dei propri compagni in tre categorie: punti di forza, criticità e suggerimenti pratici. Infine, l'IA può essere sfruttata per generare un piano di miglioramento aiutando il gruppo a decidere come agire basandosi sui feedback ricevuti per migliorare il proprio progetto.</p>
+        <h4>3. Valutazione aumentata per il docente</h4>
+        <p>Per l'insegnante, l'IA può monitorare la qualità dei feedback lasciati dagli studenti e verificare quali siano i commenti più analitici e utili per tutti. Sempre con il supporto dell'IA, il docente può generare un report che indichi quali concetti siano stati compresi e recepiti dalla classe (perché commentati correttamente) e quali invece restino ancora confusi. A completamento del lavoro si potrebbe far creare agli studenti un QR Code da attaccare accanto ai loro poster. Il QR Code può rimandare a una chatbot IA istruita con i dati del loro progetto, così i "visitatori" potranno fare domande dirette all'IA per approfondire il lavoro del gruppo.</p>
+        <table class="method-table">
+          <tr><th>Fase</th><th>Ruolo dell'IA</th><th>Obiettivo della valutazione</th></tr>
+          <tr><td>Allestimento</td><td>Generatore di contenuti e correttore</td><td>Qualità dell'esposizione iniziale</td></tr>
+          <tr><td>Walking</td><td>Assistente alla formulazione del feedback</td><td>Accuratezza e rispetto nella critica tra pari</td></tr>
+          <tr><td>Reflection</td><td>Analista dei dati e dei commenti</td><td>Consapevolezza degli errori e metacognizione</td></tr>
+        </table>
+        <div class="method-prompt">
+          <b>Prompt — docente Mendel, fase di sintesi, classe quinta</b>
+          Ruolo: sei un analista di feedback qualitativi. Contesto: classe quinta, dopo una Gallery Walk sui progetti di fine anno su sistemi di irrigazione sostenibile, ogni gruppo ha raccolto tra 10 e 15 post-it di feedback dai compagni. Compito: raggruppa i commenti che ti fornirò in tre categorie — punti di forza, criticità, suggerimenti pratici — e segnala se emergono 2-3 pattern ricorrenti tra i gruppi. Vincoli: non riformulare i commenti degli studenti in modo che perdano il senso originale, mantieni un tono costruttivo anche per le criticità.
+        </div>
+        <div class="method-prompt-alt">
+          <b>Secondo esempio</b>
+          Agisci come analista dati. Ecco una lista di feedback e commenti lasciati dagli studenti sul poster di un progetto di educazione civica digitale creato dai loro compagni [inserire commenti]. Raggruppa i feedback in tre categorie: punti di forza, criticità principali e suggerimenti pratici per migliorare il lavoro.
+        </div>
+      </div>
+    </details>
+
+    <details class="method-card">
+      <summary><span class="m-tag">1.3F</span><span class="m-name">Gamification e Escape Room</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="method-body">
+        <p>L'integrazione dell'Intelligenza Artificiale nelle attività di gamification e nelle Escape Room didattiche segna un cambio di paradigma: l'esperienza di apprendimento evolve da percorso statico a ecosistema dinamico, personalizzato e profondamente immersivo.</p>
+        <p>Per il docente, l'IA diventa un potente "assistente alla progettazione". Permette di generare istantaneamente storytelling e sceneggiature coerenti con gli obiettivi curricolari, enigmi e contenuti multimediali (audio, immagini e video) personalizzati, riducendo i tempi di preparazione tecnica e offrendo trame originali che trasformano una lezione frontale in una "missione narrativa coinvolgente". Durante il gioco, la tecnologia può assumere il ruolo di un Game Master virtuale, interagendo con i partecipanti tramite chatbot capaci di interpretare personaggi non giocanti o adattando la difficoltà delle sfide in tempo reale in base alle performance degli studenti (scaffolding dinamico), garantendo che nessun gruppo resti indietro o si annoi, favorendo così una reale inclusione.</p>
+        <p>Nella gamification scolastica, l'IA potenzia l'engagement offrendo percorsi di apprendimento su misura e feedback immediati. Questo permette al docente di monitorare il coinvolgimento e prevedere eventuali cali di attenzione, intervenendo con stimoli mirati. L'uso sinergico di strumenti come NotebookLM, Genially o Delightex EDU permette di superare la semplice sequenza di indovinelli. Si creano veri e propri "ambienti di apprendimento reattivi" che rispondono alle scelte degli studenti, rendendo il team building e la formazione degli stessi non solo più efficace e significativa, ma anche più emozionante.</p>
+        <div class="method-prompt">
+          <b>Prompt — docente Mendel, escape room, classe prima</b>
+          Ruolo: sei un game designer didattico. Contesto: classe prima dell'istituto agrario, obiettivo curricolare "i principali gruppi di macronutrienti del suolo" (azoto, fosforo, potassio). Compito: crea la sceneggiatura di una escape room di aula da 45 minuti, con 4 enigmi progressivi legati ciascuno a un macronutriente, coerenti con gli obiettivi curricolari indicati, adatti a 14enni. Vincoli: ogni enigma deve richiedere l'applicazione di un concetto, non solo la sua memorizzazione; prevedi una variante più semplice per ogni enigma nel caso un gruppo resti bloccato più di 10 minuti.
+        </div>
+        <div class="method-prompt-alt">
+          <b>Secondo esempio</b>
+          Sto progettando un'Escape Room didattica. Scrivi un breve incipit narrativo in cui un famoso esploratore ha lasciato un forziere chiuso a chiave nella serra botanica della scuola. Poi, genera un enigma logico e deduttivo legato al processo della fotosintesi clorofilliana per trovare il codice a 4 cifre del lucchetto.
+        </div>
+      </div>
+    </details>
+
+  </div>
+
+  <div class="method-closing">
+    <b style="display:block;color:var(--green-dark);margin-bottom:8px;">8.4 Il nuovo ruolo del docente: mentore e regista</b>
+    In questo scenario metodologico, il ruolo dell'insegnante subisce una metamorfosi radicale: da trasmettitore di nozioni a tutor personalizzato e mentore. Il docente agisce come un regista di dinamiche relazionali, muovendosi tra i banchi per supportare i gruppi e applicando lo scaffolding (impalcatura). Secondo i concetti di Bruner e Vygotskij, il docente fornisce un supporto temporaneo e modulato, indispensabile per permettere allo studente di raggiungere obiettivi che non otterrebbe da solo. All'interno di cornici come gli EAS (Episodi di Apprendimento Situato), l'insegnante diventa un consulente esperto che guida la classe nella produzione di artefatti originali, trasformando il tempo scuola in un momento dedicato prioritariamente all'applicazione pratica delle conoscenze. L'integrazione delle tecnologie IA non sostituisce il docente, ma gli fornisce un "sistema di navigazione intelligente" per creare un ambiente di apprendimento iper-personalizzato e immersivo — la sintesi tra classroom learning e online learning che il Blended Learning rappresenta.
+    <div class="method-prompt-alt" style="margin-top:16px;">
+      <b>Prompt — anche per la formazione dei colleghi</b>
+      Agisci come un consulente pedagogico esperto in didattica digitale. Aiutami a strutturare una scaletta di due ore per una lezione introduttiva sulle IA generative da fare ai miei colleghi. Suddividi il tempo tra un'introduzione teorica, un'attività collaborativa pratica e un momento finale di restituzione.
+    </div>
+  </div>
+</section>
+
+<section class="prompts-section" id="prompts">
+  <h2 class="section-headline">68 prompt pronti da usare subito</h2>
+  <p class="section-sub">Organizzati per situazione — basta sostituire le parti tra [parentesi quadre] con la propria materia, classe e argomento. Copia il prompt e incollalo in Gemini, NotebookLM o Claude.</p>
+
+  <div class="framework-box">
+    <div class="framework-subtitle">Prima di iniziare: come si scrive un buon prompt</div>
+    <p class="framework-intro">Il <b>prompt</b> è l'istruzione che diamo all'IA. Scriverlo bene non è magia: significa dare all'IA le stesse informazioni che daresti a un collaboratore a cui affidi un compito senza poterlo poi correggere a voce. Ecco il metodo più semplice, pensato apposta per la didattica quotidiana.</p>
+
+    <table class="framework-table">
+      <tr><th>Lettera</th><th>Significato</th><th>Esempio</th></tr>
+      <tr>
+        <td class="letter">R</td>
+        <td class="label">Ruolo</td>
+        <td>Chi deve "essere" l'IA — <i>"Agisci come un insegnante di inglese per il biennio delle superiori"</i></td>
+      </tr>
+      <tr>
+        <td class="letter">C</td>
+        <td class="label">Contesto</td>
+        <td>La situazione, la classe, il livello — <i>"Classe seconda, livello A2-B1, argomento appena introdotto"</i></td>
+      </tr>
+      <tr>
+        <td class="letter">C</td>
+        <td class="label">Compito</td>
+        <td>Cosa deve fare, in modo specifico — <i>"Crea 10 domande di comprensione del testo allegato"</i></td>
+      </tr>
+      <tr>
+        <td class="letter">V</td>
+        <td class="label">Vincoli</td>
+        <td>Formato, lunghezza, cosa evitare — <i>"Formato tabella, massimo 10 righe, senza termini tecnici non spiegati"</i></td>
+      </tr>
+    </table>
+
+    <div class="framework-example">
+      Esempio completo: "Ruolo: agisci come un insegnante di scienze agrarie delle superiori. Contesto: classe quarta, livello linguistico B1-B2. Compito: crea un questionario di verifica di 8 domande sulla fotosintesi. Vincoli: 5 domande a scelta multipla + 3 aperte, con soluzioni in fondo, senza superare una pagina."
+    </div>
+
+    <div class="framework-subtitle" style="font-size:16px;">Quando vuoi imitare uno stile preciso: C.R.E.A.</div>
+    <p class="framework-intro" style="margin-bottom:14px;">Una variante del R.C.C.V. per i casi in cui non basta descrivere cosa vuoi: serve <b>mostrarlo</b>. Utile per i format ricorrenti — la scheda di verifica che usi sempre, il layout delle circolari, un certo stile di comunicazione — che l'IA deve replicare fedelmente, non reinventare.</p>
+
+    <table class="framework-table" style="margin-bottom:22px;">
+      <tr><th>Lettera</th><th>Significato</th><th>A cosa serve</th></tr>
+      <tr><td class="letter">C</td><td class="label">Contesto</td><td>La situazione e il destinatario del materiale</td></tr>
+      <tr><td class="letter">R</td><td class="label">Ruolo</td><td>Chi deve "essere" l'IA per questo compito</td></tr>
+      <tr><td class="letter">E</td><td class="label">Esempio</td><td>Un modello concreto — un tuo testo precedente — da imitare nello stile e nella struttura</td></tr>
+      <tr><td class="letter">A</td><td class="label">Azione</td><td>Cosa deve produrre, applicando lo stile dell'esempio a un contenuto nuovo</td></tr>
+    </table>
+
+    <div class="framework-example">
+      Esempio: "Contesto: devo inviare una comunicazione alle famiglie sulle uscite didattiche. Ruolo: agisci come il referente comunicazione della scuola. Esempio: ecco il testo di una circolare che ho scritto in passato [incolla testo]. Azione: scrivi una nuova comunicazione con lo stesso tono e la stessa struttura, per l'uscita al Museo di Storia Naturale del 15 ottobre."
+    </div>
+
+    <div class="framework-subtitle" style="font-size:16px;">Per compiti più complessi: C.R.A.F.T.</div>
+    <p class="framework-intro" style="margin-bottom:14px;">Per una lezione intera, un progetto o un documento per il sito della scuola, il semplice R.C.C.V. può risultare troppo stringato. C.R.A.F.T. aggiunge due elementi chiave — l'<b>Azione</b> spezzata dal Compito generico, e il <b>Tono</b>, che spesso fa la differenza tra un materiale utilizzabile e uno da riscrivere da capo:</p>
+
+    <table class="framework-table" style="margin-bottom:22px;">
+      <tr><th>Lettera</th><th>Significato</th><th>A cosa serve</th></tr>
+      <tr><td class="letter">C</td><td class="label">Contesto</td><td>Chi sono gli studenti, che livello hanno, cosa hanno già affrontato in classe</td></tr>
+      <tr><td class="letter">R</td><td class="label">Ruolo</td><td>Chi deve "essere" l'IA per affrontare quel compito specifico</td></tr>
+      <tr><td class="letter">A</td><td class="label">Azione</td><td>Il compito preciso, spesso scomposto in più passaggi</td></tr>
+      <tr><td class="letter">F</td><td class="label">Formato</td><td>Come deve essere strutturato l'output — tabella, elenco, dialogo, scheda</td></tr>
+      <tr><td class="letter">T</td><td class="label">Tono</td><td>Il registro: formale, amichevole, semplificato per DSA, tecnico-professionale...</td></tr>
+    </table>
+
+    <p class="framework-intro" style="margin-bottom:10px;"><b>10 esempi pronti, su materie diverse</b> — bastano pochi minuti per adattarli alla propria classe:</p>
+
+    <div class="craft-examples">
+      <div class="craft-example">
+        <span class="craft-subject">Italiano</span>
+        <div class="craft-text"><b>Contesto:</b> classe seconda, livello B1-B2, dopo la lettura di un capitolo dei Promessi Sposi. <b>Ruolo:</b> insegnante di lettere esperto in analisi del testo. <b>Azione:</b> crea 5 domande di analisi guidata che colleghino testo e contesto storico. <b>Formato:</b> elenco puntato, ogni domanda con un suggerimento su cosa cercare nel testo. <b>Tono:</b> semplice e diretto.</div>
+      </div>
+      <div class="craft-example">
+        <span class="craft-subject">Inglese</span>
+        <div class="craft-text"><b>Contesto:</b> classe terza, livello A2-B1, argomento present perfect vs past simple. <b>Ruolo:</b> tutor di inglese madrelingua. <b>Azione:</b> crea un dialogo di 10 battute tra due amici che raccontano un viaggio, usando entrambi i tempi verbali. <b>Formato:</b> copione a due voci, tempi verbali evidenziati in grassetto. <b>Tono:</b> colloquiale, adatto ad adolescenti.</div>
+      </div>
+      <div class="craft-example">
+        <span class="craft-subject">Storia</span>
+        <div class="craft-text"><b>Contesto:</b> classe quinta, argomento la Seconda Guerra Mondiale, livello avanzato. <b>Ruolo:</b> storico che spiega eventi complessi in modo chiaro. <b>Azione:</b> crea una linea del tempo dei 5 eventi chiave del 1943-1945 sul fronte italiano. <b>Formato:</b> tabella con colonne data, evento, conseguenza. <b>Tono:</b> oggettivo e rigoroso.</div>
+      </div>
+      <div class="craft-example">
+        <span class="craft-subject">Matematica</span>
+        <div class="craft-text"><b>Contesto:</b> classe prima, livello base, argomento equazioni di primo grado. <b>Ruolo:</b> tutor di matematica paziente. <b>Azione:</b> crea 6 esercizi di difficoltà crescente, con soluzione guidata passo-passo per i primi due. <b>Formato:</b> elenco numerato, soluzioni in sezione separata. <b>Tono:</b> incoraggiante, che non scoraggi chi è in difficoltà.</div>
+      </div>
+      <div class="craft-example">
+        <span class="craft-subject">Agronomia</span>
+        <div class="craft-text"><b>Contesto:</b> classe terza agrario, argomento rotazione delle colture, livello B1. <b>Ruolo:</b> agronomo che spiega a studenti delle superiori. <b>Azione:</b> crea una scheda sui vantaggi della rotazione triennale, con un esempio concreto adattato al territorio lombardo. <b>Formato:</b> scheda max una pagina, elenco puntato per i vantaggi. <b>Tono:</b> pratico e concreto.</div>
+      </div>
+      <div class="craft-example">
+        <span class="craft-subject">Educazione Civica</span>
+        <div class="craft-text"><b>Contesto:</b> classe quarta, argomento diritti digitali e privacy online, livello B2. <b>Ruolo:</b> esperto di educazione civica digitale. <b>Azione:</b> crea un caso di studio realistico su un uso scorretto di dati personali sui social, con 3 domande di riflessione etica. <b>Formato:</b> testo narrativo breve (150 parole) + domande in elenco. <b>Tono:</b> coinvolgente, senza moralismo.</div>
+      </div>
+      <div class="craft-example">
+        <span class="craft-subject">Estimo</span>
+        <div class="craft-text"><b>Contesto:</b> classe quinta, argomento stima del valore di un terreno agricolo, livello tecnico avanzato. <b>Ruolo:</b> perito estimatore. <b>Azione:</b> crea un caso pratico di stima con dati fittizi ma plausibili (superficie, coltura, posizione), da far calcolare agli studenti. <b>Formato:</b> scheda dati + domanda finale, senza soluzione. <b>Tono:</b> tecnico e professionale.</div>
+      </div>
+      <div class="craft-example">
+        <span class="craft-subject">Scienze Motorie</span>
+        <div class="craft-text"><b>Contesto:</b> classe seconda, argomento allenamento aerobico, livello base. <b>Ruolo:</b> istruttore di scienze motorie. <b>Azione:</b> crea un piano di allenamento aerobico di 4 settimane per principianti, da svolgere in autonomia. <b>Formato:</b> tabella settimanale con esercizi, durata, intensità. <b>Tono:</b> motivante, semplice da seguire.</div>
+      </div>
+      <div class="craft-example">
+        <span class="craft-subject">Chimica</span>
+        <div class="craft-text"><b>Contesto:</b> classe seconda, argomento reazioni acido-base, livello B1. <b>Ruolo:</b> insegnante di chimica che semplifica concetti astratti. <b>Azione:</b> crea un'analogia quotidiana per spiegare il pH, con 3 domande di verifica della comprensione. <b>Formato:</b> testo breve (100 parole) + domande a scelta multipla. <b>Tono:</b> semplice, non tecnico nella prima parte.</div>
+      </div>
+      <div class="craft-example">
+        <span class="craft-subject">Zootecnia</span>
+        <div class="craft-text"><b>Contesto:</b> classe quarta agrario, argomento benessere animale negli allevamenti, livello B2. <b>Ruolo:</b> veterinario esperto in zootecnia. <b>Azione:</b> confronta due sistemi di allevamento (intensivo vs estensivo) sul benessere animale, con vantaggi e svantaggi di ciascuno. <b>Formato:</b> tabella comparativa a due colonne. <b>Tono:</b> equilibrato, senza prese di posizione.</div>
+      </div>
+    </div>
+
+    <div class="framework-subtitle" style="font-size:16px;">5 regole d'oro, valide in qualsiasi framework</div>
+    <div class="framework-rules">
+      <div class="framework-rule">
+        <div class="framework-rule-title">1. Sii specifico, non generico</div>
+        <div class="framework-rule-desc">Meglio "sintesi di 300 parole sulle cause economiche della Rivoluzione francese, per studenti di 15 anni" che "scrivimi qualcosa sulla Rivoluzione francese".</div>
+      </div>
+      <div class="framework-rule">
+        <div class="framework-rule-title">2. Dai esempi</div>
+        <div class="framework-rule-desc">Se vuoi uno stile preciso, mostra un esempio dell'output desiderato: l'IA lo imita meglio che a partire da una descrizione astratta.</div>
+      </div>
+      <div class="framework-rule">
+        <div class="framework-rule-title">3. Definisci cosa NON vuoi</div>
+        <div class="framework-rule-desc">I vincoli negativi funzionano: "non usare paroloni tecnici", "non superare le 15 righe", "non inventare dati".</div>
+      </div>
+      <div class="framework-rule">
+        <div class="framework-rule-title">4. Chiedi il ragionamento step-by-step</div>
+        <div class="framework-rule-desc">Per problemi logici o matematici, "ragiona passo per passo prima di dare la risposta finale" migliora l'accuratezza.</div>
+      </div>
+      <div class="framework-rule" style="grid-column:1 / -1;">
+        <div class="framework-rule-title">5. Itera: il primo risultato è una bozza</div>
+        <div class="framework-rule-desc">Dopo la risposta, chiedi "cosa manca?", "come la miglioreresti?", "ci sono errori?" — l'autovalutazione migliora quasi sempre il risultato.</div>
+      </div>
+    </div>
+
+    <table class="framework-when">
+      <tr><th>Framework</th><th>Quando usarlo</th></tr>
+      <tr><td><b>R.C.C.V.</b></td><td>Compiti rapidi, quotidiani, singola richiesta</td></tr>
+      <tr><td><b>C.R.E.A.</b></td><td>Repliche di uno stile o formato preciso già esistente (circolari, format ricorrenti)</td></tr>
+      <tr><td><b>C.R.A.F.T.</b></td><td>Materiali didattici articolati, lezioni, documenti scolastici</td></tr>
+      <tr><td><b>Ragionamento step-by-step</b></td><td>Problemi logici, matematici, verifiche con soluzioni</td></tr>
+      <tr><td><b>Iterazione guidata</b></td><td>Sempre, come ultimo passaggio dopo qualsiasi prompt</td></tr>
+    </table>
+  </div>
+
+  <div class="prompt-group">
+    <div class="prompt-group-title"><span>Preparare una verifica</span><span class="count">8</span></div>
+    <ol class="prompt-list">
+      <li>Crea 8 domande a risposta multipla di livello [biennio/triennio], classe [X], sull'argomento [Y]. Ogni domanda deve avere 4 opzioni, con la soluzione indicata separatamente alla fine.</li>
+      <li>Prepara una verifica scritta su [argomento] per una classe [X], con 3 domande aperte di difficoltà crescente e una griglia di valutazione con i punteggi per ciascuna.</li>
+      <li>Trasforma questi appunti (incollati sotto) in una verifica vero/falso di 10 domande, evitando trabocchetti troppo ambigui.</li>
+      <li>Genera una verifica di recupero su [argomento], diversa nella formulazione ma equivalente per difficoltà a questa verifica originale (incollata sotto), per uno studente che deve recuperare l'insufficienza.</li>
+      <li>Crea un compito a scelta multipla con giustificazione: per ogni domanda lo studente deve anche spiegare in una riga perché ha scelto quella risposta.</li>
+      <li>Prepara 5 esercizi pratici di difficoltà progressiva su [argomento/competenza], da usare come compito per casa.</li>
+      <li>Crea un test a risposta multipla di 10 domande sull'argomento [Argomento]. Per ogni domanda fornisci 4 opzioni di cui solo una corretta. Alla fine, fornisci la griglia di correzione separata.</li>
+      <li>Basandoti sull'argomento [Argomento], genera 5 domande a risposta aperta progettate per stimolare il pensiero critico e il collegamento interdisciplinare, non la semplice memorizzazione.</li>
+    </ol>
+  </div>
+
+  <div class="prompt-group">
+    <div class="prompt-group-title"><span>Preparare una lezione</span><span class="count">10</span></div>
+    <ol class="prompt-list">
+      <li>Proponimi una scaletta di lezione di 50 minuti su [argomento], per una classe [X], con una parte introduttiva (10 min), un'attività pratica o di gruppo (25 min) e una verifica finale rapida (15 min).</li>
+      <li>Suggeriscimi 3 modi diversi di introdurre l'argomento [X] a una classe che lo trova noioso o difficile, con un esempio concreto per ciascuno.</li>
+      <li>Crea una mappa concettuale testuale (in elenco puntato gerarchico) sull'argomento [X], adatta a essere ridisegnata a mano alla lavagna.</li>
+      <li>Proponimi un'analogia o una metafora semplice per spiegare [concetto astratto] a ragazzi di [età].</li>
+      <li>Suggeriscimi 3 domande stimolo da porre in apertura di lezione su [argomento], per far emergere cosa già sanno gli studenti.</li>
+      <li>Trasforma questo argomento in una piccola storia o caso pratico legato al settore agrario/tecnico, per renderlo più concreto per i miei studenti.</li>
+      <li>Proponimi un'attività di 15 minuti di ripasso veloce su [argomento] da fare a inizio lezione.</li>
+      <li>Spiega il concetto di [es. Fotosintesi / Ciclo dell'Azoto] usando un'analogia legata alla vita quotidiana, per renderla immediatamente comprensibile a studenti di 14 anni. Limita a 150 parole.</li>
+      <li>Devo creare una nuova UdA su [es. Cambiamento Climatico] per una [es. Terza Superiore]. Proponimi 5 idee per attività pratiche di laboratorio o compiti di realtà (max 2 ore ciascuno).</li>
+      <li>Genera un caso di studio realistico su [es. azienda agricola che affronta una siccità]. Includi dati numerici fittizi, personaggi e un problema finale che gli studenti dovranno risolvere a gruppi.</li>
+    </ol>
+  </div>
+
+  <div class="prompt-group">
+    <div class="prompt-group-title"><span>Materiali differenziati e inclusione</span><span class="count">10</span></div>
+    <ol class="prompt-list">
+      <li>Riscrivi questo testo (incollato sotto) in una versione più semplice, con frasi più brevi e lessico meno tecnico, mantenendo tutti i concetti chiave, per uno studente con difficoltà di lettura.</li>
+      <li>Prendi questa consegna (incollata sotto) e proponimi una versione facilitata e una di approfondimento per lo stesso argomento, adatte a una classe con livelli eterogenei.</li>
+      <li>Suggeriscimi come adattare questa attività (incollata sotto) per uno studente con DSA, mantenendo lo stesso obiettivo di apprendimento.</li>
+      <li>Trasforma questo testo scritto in una serie di domande guida, utile per uno studente che fatica a orientarsi in un testo lungo.</li>
+      <li>Riscrivi il testo [incolla] per un alunno con DSA. Usa un formato ad alta leggibilità (elenchi), frasi coordinate (no subordinate lunghe), ed evidenzia in MAIUSCOLO le parole chiave.</li>
+      <li>Trasforma questo paragrafo discorsivo [incolla] in un elenco puntato schematico, mantenendo solo i nessi causa-effetto e i concetti fondamentali per lo studio mnemonico.</li>
+      <li>Traduci il testo [incolla] seguendo le regole "Easy to Read" (Facile da Leggere). Usa solo parole comuni, frasi soggetto-verbo-complemento e rivolgiti direttamente al lettore ("Tu").</li>
+      <li>Scomponi questa consegna [es. scrivere relazione sull'esperimento] in una checklist visiva di 5 step brevissimi, numerati, usando imperativi ("1. Prendi il quaderno. 2. Scrivi...").</li>
+      <li>Riorganizza questo testo [incolla] in 4 blocchi tematici brevissimi. Aggiungi un'emoji molto rappresentativa all'inizio di ogni blocco per facilitare la memorizzazione visiva per alunni BES.</li>
+      <li>Riscrivi le istruzioni di questo compito pratico [incolla] descrivendole passo dopo passo, concentrandoti sulle percezioni tattili, uditive e olfattive invece che visive.</li>
+    </ol>
+  </div>
+
+  <div class="prompt-group">
+    <div class="prompt-group-title"><span>Correzione e feedback</span><span class="count">5</span></div>
+    <ol class="prompt-list">
+      <li>Dammi 3 osservazioni costruttive su questo testo scritto da uno studente (incollato sotto), senza riscriverlo tu e senza dare un voto.</li>
+      <li>Elenca gli errori grammaticali/di calcolo in questo testo/esercizio (incollato sotto), spiegando brevemente il perché di ciascuno, senza correggerlo direttamente.</li>
+      <li>Confronta questi due elaborati di studenti diversi (incollati sotto) e dimmi quali punti di forza comuni e quali differenze noti, per aiutarmi a tarare la correzione.</li>
+      <li>Suggeriscimi 3 domande da fare oralmente a uno studente per capire se ha capito davvero questo argomento o l'ha solo mandato a memoria.</li>
+      <li>Scrivi un riassunto (200 parole) su [argomento] inserendo intenzionalmente 4 errori concettuali grossolani. Mi servirà in classe per far trovare l'errore ai ragazzi, con le soluzioni a parte.</li>
+    </ol>
+  </div>
+
+  <div class="prompt-group">
+    <div class="prompt-group-title"><span>Sintesi e studio</span><span class="count">6</span></div>
+    <ol class="prompt-list">
+      <li>Riassumi questo capitolo/documento (incollato o caricato) in 10 punti chiave, adatti a essere usati come guida di ripasso per gli studenti.</li>
+      <li>Genera 5 domande di autoverifica che uno studente potrebbe porsi dopo aver studiato questo argomento, per capire se ha capito davvero.</li>
+      <li>Trasforma questi appunti disordinati in uno schema ordinato con titoli e sottotitoli.</li>
+      <li>Crea delle flashcard (domanda/risposta) su questo argomento, una per ogni concetto chiave.</li>
+      <li>Estrai dal seguente testo [incolla] i 10 termini tecnici più importanti. Per ciascuno scrivi una definizione di una sola riga adatta a studenti superiori, in formato tabella.</li>
+      <li>Genera una mappa concettuale testuale (elenchi puntati e rientrati) che riassuma cause, svolgimento e conseguenze di [argomento]. Evidenzia i concetti in grassetto.</li>
+    </ol>
+  </div>
+
+  <div class="prompt-group">
+    <div class="prompt-group-title"><span>Progettazione didattica e valutazione</span><span class="count">6</span></div>
+    <ol class="prompt-list">
+      <li>Aiutami a costruire una rubrica di valutazione a 4 livelli (insufficiente/sufficiente/buono/ottimo) per una consegna di tipo [presentazione orale/relazione scritta/progetto pratico] su [argomento].</li>
+      <li>Proponimi 3 obiettivi di apprendimento misurabili per un'Unità Didattica su [argomento], adatti a una classe [X].</li>
+      <li>Suggeriscimi come collegare questo argomento di [materia] a un tema di Educazione Civica o di cittadinanza digitale.</li>
+      <li>Aiutami a stimare i tempi di un'attività didattica: quanto tempo servirebbe realisticamente per far svolgere questo compito (descritto sotto) a una classe di 20 studenti?</li>
+      <li>Crea una griglia di valutazione in tabella Markdown per [es. relazione di chimica]. Livelli: Iniziale, Base, Intermedio, Avanzato. Indicatori: correttezza contenuti, lessico tecnico, sintesi.</li>
+      <li>Progetta un "compito di realtà" per valutare la competenza [es. progettazione impianto di irrigazione]. Definisci scenario, ruolo dell'alunno, prodotto atteso e vincoli temporali.</li>
+    </ol>
+  </div>
+
+  <div class="prompt-group">
+    <div class="prompt-group-title"><span>Attività di gruppo, dibattito e coinvolgimento</span><span class="count">5</span></div>
+    <ol class="prompt-list">
+      <li>Proponimi un'attività di dibattito in classe su [argomento controverso legato alla materia], con ruoli assegnati e regole semplici.</li>
+      <li>Suggeriscimi un gioco o una gara a squadre per ripassare [argomento] negli ultimi 15 minuti di lezione.</li>
+      <li>Crea 5 domande aperte per una discussione di classe che stimolino il pensiero critico su [argomento], non solo la memoria.</li>
+      <li>Proponimi un piccolo progetto di gruppo (2-3 lezioni) su [argomento], con una consegna finale concreta da presentare.</li>
+      <li>Agisci come moderatore. Prepara 3 argomentazioni forti a favore e 3 contro sul tema [es. OGM in agricoltura] per supportare gli studenti in un debate in classe.</li>
+    </ol>
+  </div>
+
+  <div class="prompt-group">
+    <div class="prompt-group-title"><span>Comunicazione, burocrazia e famiglie</span><span class="count">9</span></div>
+    <ol class="prompt-list">
+      <li>Aiutami a scrivere una comunicazione breve e chiara per le famiglie riguardo a [situazione], in tono professionale ma non burocratico.</li>
+      <li>Trasforma queste note prese durante un Consiglio di Classe in un verbale ordinato e leggibile.</li>
+      <li>Aiutami a scrivere una mail a un collega per proporre un'attività interdisciplinare su [argomento].</li>
+      <li>Scrivi la relazione finale quadrimestrale istituzionale per la classe [Classe]. Concetti: gruppo vivace, laboratori proficui, carente lo studio domestico. Tono formale, 150 parole.</li>
+      <li>Ecco i miei appunti sparsi del Collegio: [incolla]. Rielaborali in un verbale formale diviso in: premessa, ordine del giorno, delibere approvate, interventi principali. Tono burocratico.</li>
+      <li>Scrivi una bozza di nota disciplinare formale per i genitori di [X], che ha disturbato ripetutamente la lezione usando il cellulare e rispondendo male. Richiedi un colloquio, tono fermo ma istituzionale.</li>
+      <li>Scrivi una circolare per le famiglie per l'uscita didattica a [luogo]. Data, ora ritrovo, rientro, mezzo di trasporto. Aggiungi il tagliando per autorizzazione e firma.</li>
+      <li>Devo compilare le "Misure Dispensative e Strumenti Compensativi" per il PDP di uno studente con dislessia in [materia]. Suggeriscimi un elenco puntato burocratico delle 5 misure più adatte da inserire.</li>
+      <li>Scrivi una risposta formale ed empatica alla mail di un genitore preoccupato per il voto insufficiente del figlio [nome]. Rassicuralo, spiega l'andamento e proponi date per un colloquio (in presenza o Meet).</li>
+    </ol>
+  </div>
+
+  <div class="prompt-group">
+    <div class="prompt-group-title"><span>Idee e brainstorming personale</span><span class="count">3</span></div>
+    <ol class="prompt-list">
+      <li>Dammi 5 idee di attività pratiche legate al settore agrario da collegare a [argomento teorico], per rendere la lezione più concreta.</li>
+      <li>Sto preparando una lezione su [argomento] e mi sento a corto di idee: proponimi 3 approcci diversi tra cui scegliere, con pro e contro di ciascuno.</li>
+      <li>Aiutami a capire se questo argomento (descritto sotto) si presta meglio a una spiegazione frontale, a un lavoro di gruppo o a un'attività pratica, e perché.</li>
+    </ol>
+  </div>
+
+  <div class="prompt-group">
+    <div class="prompt-group-title"><span>Prompt per Agrario, Zootecnia, Estimo e Lingue</span><span class="count">6</span></div>
+    <ol class="prompt-list">
+      <li>Agisci come importatore britannico (Mr. Smith) che vuole comprare vino e formaggi. Inizia una conversazione con me (venditore). Fai UNA SOLA domanda alla volta. Correggi il mio inglese prima di proseguire.</li>
+      <li>Genera un problema per 4ª Agrario. Campo di [X] ettari a [coltura]. Chiedi di calcolare i quintali di concime [titolo] da acquistare basandosi sulle asportazioni N-P-K. Fornisci la soluzione a parte.</li>
+      <li>Crea uno scenario clinico simulato per una stalla da latte. Sintomi: calo produzione e [sintomo 2]. Chiedi agli alunni di ipotizzare la patologia (es. mastite), le cause ambientali e le azioni correttive.</li>
+      <li>Struttura un indice (solo titoli sezioni) per un business plan volto all'apertura di un punto vendita a Km0 annesso all'azienda agricola scolastica in Lombardia. Evidenzia quali dati servono.</li>
+      <li>Spiega il funzionamento di una [es. trattrice ISOBUS]. Linguaggio tecnico. Concentrati sulla componente elettronica e di agricoltura di precisione (GPS, sensori, dosaggio variabile).</li>
+      <li>Genera un caso studio di esproprio per pubblica utilità (costruzione strada) su un terreno agricolo coltivato. Fornisci dati catastali e rendite fittizie. Chiedi alla classe di calcolare l'indennità spettante.</li>
+    </ol>
+  </div>
+
+  <div class="prompts-note">
+    <b>Una regola per tutti i prompt:</b> più sei specifico su classe, livello e formato desiderato, migliore sarà il risultato — e va sempre riletto e verificato prima di usarlo con gli studenti.
+  </div>
+
+  <div class="external-cta">
+    <div class="external-cta-text">
+      <span class="external-cta-badge">Minisito</span>
+      <div class="external-cta-title">Vuoi approfondire? Il sito "Il Mendel e l'IA"</div>
+      <div class="external-cta-desc">Il portale del Team Digitale raccoglie il confronto tra gli strumenti IA, la libreria prompt per i docenti, una per il personale ATA e tutta la documentazione normativa di riferimento.</div>
+    </div>
+    <a href="https://iismendel.github.io/Il-Mendel-e-l-IA_Team-Digitale_IIS-MENDEL/" target="_blank" rel="noopener" class="external-cta-btn">Vai al sito →</a>
+  </div>
+</section>
+
+<section class="glossary-section" id="glossario">
+  <h2 class="section-headline">Glossario essenziale dell'IA</h2>
+  <p class="section-sub">I termini più utili per orientarsi, spiegati in modo semplice e in ordine alfabetico — non serve impararli a memoria, basta sapere dove trovarli.</p>
+
+  <div class="glossary-letter">A</div>
+  <div class="glossary-list">
+    <div class="glossary-item"><b>Accessibilità Digitale</b> — Pratiche e strumenti che permettono a ogni studente, comprese le persone con disabilità fisiche o cognitive, di usare le risorse digitali. L'IA la sostiene personalizzando contenuti e materiali didattici.</div>
+    <div class="glossary-item"><b>Analisi dei Dati (Data Analytics)</b> — Esame e interpretazione di grandi quantità di dati per trarne informazioni utili. A scuola aiuta a leggere in modo più preciso le prestazioni degli studenti.</div>
+    <div class="glossary-item"><b>Apprendimento Adattivo</b> — Approccio didattico che modula contenuti, esercizi e livello di difficoltà in base al ritmo, al rendimento e allo stile di apprendimento di ciascuno studente.</div>
+    <div class="glossary-item"><b>Apprendimento Automatico (Machine Learning)</b> — Ramo dell'IA che sviluppa algoritmi capaci di imparare dai dati e migliorare nel tempo; è alla base di funzioni come classificazione, previsione e personalizzazione.</div>
+    <div class="glossary-item"><b>Artificial General Intelligence (AGI)</b> — Forma di IA, ancora teorica, capace di applicare un'intelligenza simile a quella umana a qualsiasi compito o situazione, con piena flessibilità.</div>
+    <div class="glossary-item"><b>Artificial Neural Networks (ANN)</b> — Modelli di calcolo ispirati al funzionamento del cervello, composti da nodi collegati tra loro, usati per riconoscere pattern complessi nei dati.</div>
+    <div class="glossary-item"><b>Assistenti Virtuali</b> — Sistemi basati su IA che aiutano nella ricerca di informazioni, nella pianificazione e nella gestione di compiti quotidiani; a scuola possono supportare sia studenti sia docenti.</div>
+  </div>
+
+  <div class="glossary-letter">B</div>
+  <div class="glossary-list">
+    <div class="glossary-item"><b>Big Data</b> — Enormi volumi di dati che, se analizzati correttamente, permettono di individuare informazioni utili e prendere decisioni più consapevoli.</div>
+  </div>
+
+  <div class="glossary-letter">C</div>
+  <div class="glossary-list">
+    <div class="glossary-item"><b>Chatbot</b> — Programma che simula una conversazione, testuale o vocale. Può rispondere a domande, fornire assistenza e accompagnare l'apprendimento degli studenti.</div>
+    <div class="glossary-item"><b>Cittadinanza Digitale</b> — Insieme di competenze e comportamenti responsabili per muoversi online: gestione della privacy, consapevolezza mediatica, sicurezza informatica e rispetto delle regole etiche.</div>
+  </div>
+
+  <div class="glossary-letter">D</div>
+  <div class="glossary-list">
+    <div class="glossary-item"><b>Data-Driven Instruction</b> — Modo di insegnare che si basa sui dati raccolti dagli studenti tramite strumenti digitali, per orientare le scelte didattiche e migliorarne l'efficacia.</div>
+    <div class="glossary-item"><b>Deep Learning</b> — Sottoinsieme del machine learning che usa reti neurali a più strati per riconoscere pattern complessi; è alla base, ad esempio, del riconoscimento vocale e della visione artificiale.</div>
+  </div>
+
+  <div class="glossary-letter">E</div>
+  <div class="glossary-list">
+    <div class="glossary-item"><b>Elaborazione del Linguaggio Naturale (NLP)</b> — Campo dell'IA dedicato all'interazione tra computer e linguaggio umano, che permette a una macchina di comprendere, analizzare e generare testo.</div>
+    <div class="glossary-item"><b>Etica dell'AI</b> — Riflessione sulle implicazioni sociali ed etiche dell'intelligenza artificiale — privacy, sicurezza, equità — fondamentale quando la si introduce in classe.</div>
+  </div>
+
+  <div class="glossary-letter">G</div>
+  <div class="glossary-list">
+    <div class="glossary-item"><b>Giochi Educativi</b> — Applicazioni basate sull'IA che uniscono apprendimento e gioco, rendendo più coinvolgenti materie diverse, dalla matematica alla storia.</div>
+  </div>
+
+  <div class="glossary-letter">I</div>
+  <div class="glossary-list">
+    <div class="glossary-item"><b>Inclusione e Accessibilità</b> — Uso dell'IA per garantire a ogni studente, a prescindere da capacità o difficoltà, un accesso equo a un'istruzione di qualità, anche tramite supporto personalizzato.</div>
+    <div class="glossary-item"><b>Intelligenza Artificiale (AI)</b> — Disciplina che sviluppa sistemi e algoritmi capaci di percepire, ragionare, apprendere e prendere decisioni in modo simile agli esseri umani.</div>
+    <div class="glossary-item"><b>Intelligenza Artificiale Debole (Weak AI)</b> — IA progettata per svolgere compiti specifici e ben definiti, senza possedere un'intelligenza generale: è la forma più diffusa oggi, compresi i chatbot che usiamo abitualmente.</div>
+    <div class="glossary-item"><b>Intelligenza Artificiale Forte (Strong AI)</b> — IA teorica capace di intelligenza generale applicabile a qualunque compito, con capacità paragonabili a quelle umane; è ancora oggetto di ricerca.</div>
+    <div class="glossary-item"><b>Intelligenza Artificiale Generativa (Generative AI)</b> — IA in grado di creare contenuti originali — testi, immagini, materiali multimediali — a partire da dati di input; utile per generare materiali didattici personalizzati.</div>
+    <div class="glossary-item"><b>Internet delle Cose (IoT)</b> — Rete di dispositivi connessi che raccolgono e condividono dati; a scuola può servire a monitorare ambienti e attività degli studenti.</div>
+  </div>
+
+  <div class="glossary-letter">P</div>
+  <div class="glossary-list">
+    <div class="glossary-item"><b>Pensiero Computazionale</b> — Metodo per risolvere problemi scomponendoli in parti più semplici e traducendoli in algoritmi; insegna a ragionare in modo logico e strutturato.</div>
+    <div class="glossary-item"><b>Personalizzazione dell'Apprendimento</b> — Uso dell'IA per adattare contenuti e attività didattiche alle esigenze di ciascuno studente, migliorandone coinvolgimento e risultati.</div>
+    <div class="glossary-item"><b>Privacy by Design</b> — Approccio alla progettazione di sistemi digitali ed educativi che integra fin dall'inizio le misure di tutela dei dati personali, in linea con la normativa sulla privacy.</div>
+    <div class="glossary-item"><b>Privacy e Sicurezza dei Dati</b> — Protezione dei dati personali degli studenti: l'IA va usata in modo etico e responsabile, rispettandone privacy e sicurezza.</div>
+    <div class="glossary-item"><b>Programmazione</b> — Attività di scrivere istruzioni per un computer con un linguaggio specifico; competenza chiave dell'era digitale, che l'IA può aiutare a insegnare.</div>
+  </div>
+
+  <div class="glossary-letter">R</div>
+  <div class="glossary-list">
+    <div class="glossary-item"><b>Realtà Aumentata (AR)</b> — Tecnologia che sovrappone informazioni digitali al mondo reale, utile per rendere i contenuti didattici più interattivi e contestualizzati.</div>
+    <div class="glossary-item"><b>Realtà Virtuale (VR)</b> — Tecnologia che crea ambienti immersivi con cui lo studente può interagire in modo realistico, per esperienze di apprendimento coinvolgenti.</div>
+    <div class="glossary-item"><b>Robotica</b> — Campo che sviluppa e utilizza robot, spesso insieme all'IA, per svolgere compiti complessi e interagire con l'ambiente fisico.</div>
+    <div class="glossary-item"><b>Robotica Collaborativa (Cobots)</b> — Robot progettati per lavorare a stretto contatto con le persone, anche in contesti didattici, sostenendo attività pratiche e di gruppo.</div>
+    <div class="glossary-item"><b>Robotica Educativa</b> — Uso della robotica nella didattica per insegnare programmazione, problem solving e competenze STEM in modo coinvolgente.</div>
+  </div>
+
+  <div class="glossary-letter">S</div>
+  <div class="glossary-list">
+    <div class="glossary-item"><b>Simulazioni</b> — Applicazioni basate su IA che ricreano situazioni o ambienti reali, permettendo agli studenti di sperimentare e applicare le proprie conoscenze in contesti pratici.</div>
+    <div class="glossary-item"><b>Simulazioni Immersive</b> — Simulazioni potenziate da realtà virtuale o aumentata, che ricreano scenari realistici e permettono di acquisire competenze pratiche in sicurezza.</div>
+  </div>
+
+  <div class="glossary-letter">V</div>
+  <div class="glossary-list">
+    <div class="glossary-item"><b>Valutazione Automatizzata</b> — Uso dell'IA per valutare le prestazioni degli studenti con un'analisi approfondita e un feedback tempestivo, alleggerendo il carico di lavoro dei docenti.</div>
+    <div class="glossary-item"><b>Visione Artificiale (Computer Vision)</b> — Campo dell'IA che analizza e interpreta immagini e video, permettendo alle macchine di riconoscere oggetti, scene e gesti.</div>
+  </div>
+</section>
+
+<section id="bibliografia">
+  <h2 class="section-headline">Bibliografia</h2>
+  <p class="section-sub">I testi utilizzati come riferimento per i contenuti di questo corso.</p>
+  <div class="biblio-list">
+    <div class="biblio-item"><span class="biblio-author">Chiozzi, B.</span> — <span class="biblio-title">Riflessioni sul curricolo digitale</span>.</div>
+    <div class="biblio-item"><span class="biblio-author">Galati, R.</span> — <span class="biblio-title">Insegnare con IA: Strategie, metodi e strumenti per la scuola</span>. (Fonte del capitolo sulle metodologie didattiche potenziate dall'IA.)</div>
+    <div class="biblio-item"><span class="biblio-author">Pattoia, M.</span> — <span class="biblio-title">AI per l'Istruzione</span>.</div>
+    <div class="biblio-item"><span class="biblio-author">Rossi, R.</span> — <span class="biblio-title">Intelligenza artificiale e didattica</span>.</div>
+    <div class="biblio-item"><span class="biblio-author">Tammaro, G.</span> — <span class="biblio-title">IA per la Didattica: Strategie, Strumenti e Buone Pratiche per il Docente Contemporaneo</span>.</div>
+  </div>
+
+  <div class="biblio-subtitle">Canali e creator seguiti per l'aggiornamento</div>
+  <p class="biblio-note">Video, corsi e contenuti online che integrano l'aggiornamento continuo su IA e didattica.</p>
+  <div class="creator-tags">
+    <span class="creator-tag">Paul J. Lipsky</span>
+    <span class="creator-tag">AI Master</span>
+    <span class="creator-tag">AI Mind Revolution</span>
+    <span class="creator-tag">Raffaele Gaito</span>
+    <span class="creator-tag">IA per tutti</span>
+    <span class="creator-tag">Gregorio Lazzari</span>
+    <span class="creator-tag">James Morell</span>
+    <span class="creator-tag">Arianna Pisapia</span>
+    <span class="creator-tag">Daniele Biancardi</span>
+    <span class="creator-tag">Alessandro Bencivenni (Prof. Digitale)</span>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-headline">A chi è rivolto</h2>
+  <div class="audience-box">
+    <p>Il corso è pensato per i colleghi che conoscono poco l'intelligenza artificiale e sono un po' restii a usarla in classe. Non serve alcuna competenza tecnica pregressa: solo la voglia di provare, con calma e senza fretta.</p>
+  </div>
+</section>
+</div>
+
+<div id="tab-piattaforme" class="tab-panel">
+<!-- NAV INTERNA -->
+    <nav class="bg-white border-b border-slate-200 sticky top-[56px] z-30 no-print">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-auto">
+            <ul class="flex gap-1 py-2 text-sm font-semibold whitespace-nowrap">
+                <li><a href="#obiettivi" class="px-3 py-2 rounded-lg text-slate-600 hover:bg-mendel-50 hover:text-mendel-800 inline-block">Obiettivi</a></li>
+                <li><a href="#piattaforme" class="px-3 py-2 rounded-lg text-slate-600 hover:bg-mendel-50 hover:text-mendel-800 inline-block">Le 4 piattaforme</a></li>
+                <li><a href="#confronto" class="px-3 py-2 rounded-lg text-slate-600 hover:bg-mendel-50 hover:text-mendel-800 inline-block">Matrice di confronto</a></li>
+                <li><a href="#alternative" class="px-3 py-2 rounded-lg text-slate-600 hover:bg-mendel-50 hover:text-mendel-800 inline-block">Alternative escluse</a></li>
+                <li><a href="#normativa" class="px-3 py-2 rounded-lg text-slate-600 hover:bg-mendel-50 hover:text-mendel-800 inline-block">Normativa e privacy</a></li>
+                <li><a href="#conformita" class="px-3 py-2 rounded-lg text-slate-600 hover:bg-mendel-50 hover:text-mendel-800 inline-block">Quadro di conformità</a></li>
+            </ul>
+        </div>
+    </nav>
+
+<section class="bg-white border-b border-slate-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+            <span class="inline-block bg-mendel-700/10 text-mendel-700 text-xs font-bold px-3 py-1 rounded-full mb-4 uppercase tracking-wide">Corso di formazione e aggiornamento docenti</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-mendel-900 mb-4">Quali piattaforme IA possiamo usare, e come farlo a norma</h2>
+            <p class="lead text-slate-600 max-w-3xl mx-auto">Analisi comparativa di quattro strumenti selezionati per la progettazione didattica, la produzione di materiali pronti, la correzione e l'interazione guidata con gli studenti, con il relativo quadro normativo di riferimento.</p>
+            <div class="mt-6 flex flex-wrap justify-center gap-2 text-xs font-semibold">
+                <span class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-full border border-slate-200">Regolamento IA d'Istituto — Prot. 0007790 del 09/07/2026</span>
+                <span class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-full border border-slate-200">Linee Guida MIM v. 1.0 — 2025</span>
+                <span class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-full border border-slate-200">AI Act — Reg. UE 2024/1689</span>
+            </div>
+        </div>
+    </section>
+
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-6">
+    <div class="bg-mendel-900 rounded-xl p-6 sm:p-7 flex flex-wrap items-center justify-between gap-5">
+        <div class="flex-1 min-w-[240px]">
+            <span class="inline-block bg-white text-mendel-900 text-[10.5px] font-extrabold tracking-widest px-2.5 py-1 rounded-full mb-2 uppercase">Minisito</span>
+            <p class="text-white font-bold text-base mb-1">Vuoi approfondire? Il sito "Il Mendel e l'IA"</p>
+            <p class="text-white/85 text-sm leading-relaxed">Il portale del Team Digitale raccoglie il confronto tra gli strumenti IA, la libreria prompt per i docenti, una per il personale ATA e tutta la documentazione normativa di riferimento.</p>
+        </div>
+        <a href="https://iismendel.github.io/Il-Mendel-e-l-IA_Team-Digitale_IIS-MENDEL/" target="_blank" rel="noopener" class="shrink-0 bg-white text-mendel-900 font-bold text-sm px-5 py-3 rounded-lg hover:opacity-90 transition">Vai al sito →</a>
+    </div>
+</div>
+
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow w-full">
+
+        <!-- OBIETTIVI -->
+        <section id="obiettivi" class="scroll-mt-40 mb-16">
+            <h3 class="text-2xl font-bold text-mendel-900 mb-6 flex items-center gap-2">
+                <i data-lucide="target" class="w-6 h-6 text-mendel-700"></i> Introduzione e obiettivi del corso
+            </h3>
+            <p class="lead text-slate-700 mb-4">L'introduzione dei sistemi di Intelligenza Artificiale Generativa nella scuola rappresenta un'opportunità strategica per ottimizzare i tempi di progettazione didattica, personalizzare gli apprendimenti e creare materiali trasversali adatti sia agli indirizzi tecnici e professionali agrari sia all'insegnamento delle lingue e delle materie generali.</p>
+            <p class="lead text-slate-700 mb-8">L'obiettivo del corso è guidare i docenti nella scelta consapevole degli strumenti più idonei, fornendo indicazioni operative chiare, analisi comparative e un quadro normativo rigoroso per operare nel pieno rispetto della privacy degli studenti e delle direttive ministeriali ed europee.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
+                    <div class="text-3xl font-extrabold text-mendel-700">4</div>
+                    <div class="text-sm text-slate-600 mt-1">Piattaforme nel corso base</div>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
+                    <div class="text-3xl font-extrabold text-mendel-700">2</div>
+                    <div class="text-sm text-slate-600 mt-1">Alternative valutate ed escluse</div>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
+                    <div class="text-3xl font-extrabold text-mendel-700">100%</div>
+                    <div class="text-sm text-slate-600 mt-1">Supporto alla lingua italiana</div>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
+                    <div class="text-3xl font-extrabold text-mendel-700">5</div>
+                    <div class="text-sm text-slate-600 mt-1">Riferimenti normativi vincolanti</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PIATTAFORME -->
+        <section id="piattaforme" class="scroll-mt-40 mb-16">
+            <h3 class="text-2xl font-bold text-mendel-900 mb-3 flex items-center gap-2">
+                <i data-lucide="layers" class="w-6 h-6 text-mendel-700"></i> Parte 1 — Le quattro piattaforme del corso
+            </h3>
+            <p class="lead text-slate-600 mb-8">Sono state individuate perché coprono l'intero spettro delle esigenze scolastiche: dalla pianificazione a casa, alla creazione rapida di materiali già pronti da usare in aula, al lavoro quotidiano sui documenti condivisibili, fino all'interazione guidata in aule didattiche e laboratori.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="bg-white p-6 rounded-xl border-t-4 border-mendel-700 border-x border-b border-slate-200 shadow-sm">
+                    <i data-lucide="wand-sparkles" class="w-8 h-8 text-mendel-600 mb-3"></i>
+                    <h4 class="font-bold text-mendel-900 mb-1">MagicSchool AI</h4>
+                    <p class="text-xs uppercase tracking-wide font-semibold text-mendel-700 mb-2">Progettazione — lato docente</p>
+                    <p class="text-slate-600 text-sm">Il "coltellino svizzero": oltre 60 strumenti per UDA, verifiche, griglie e materiali differenziati.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border-t-4 border-mendel-700 border-x border-b border-slate-200 shadow-sm">
+                    <i data-lucide="chrome" class="w-8 h-8 text-mendel-600 mb-3"></i>
+                    <h4 class="font-bold text-mendel-900 mb-1">Brisk Teaching</h4>
+                    <p class="text-xs uppercase tracking-wide font-semibold text-mendel-700 mb-2">Correzione — dentro Google Workspace</p>
+                    <p class="text-slate-600 text-sm">Estensione Chrome che opera nativamente in Docs, Slides, Moduli, Classroom e su qualsiasi pagina web.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border-t-4 border-mendel-700 border-x border-b border-slate-200 shadow-sm">
+                    <i data-lucide="graduation-cap" class="w-8 h-8 text-mendel-600 mb-3"></i>
+                    <h4 class="font-bold text-mendel-900 mb-1">SchoolAI</h4>
+                    <p class="text-xs uppercase tracking-wide font-semibold text-mendel-700 mb-2">Interazione — lato studente</p>
+                    <p class="text-slate-600 text-sm">Ambiente recintato e monitorato (Space) in cui l'IA guida lo studente con metodo socratico.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border-t-4 border-mendel-700 border-x border-b border-slate-200 shadow-sm">
+                    <i data-lucide="layout-template" class="w-8 h-8 text-mendel-600 mb-3"></i>
+                    <h4 class="font-bold text-mendel-900 mb-1">Teachy</h4>
+                    <p class="text-xs uppercase tracking-wide font-semibold text-mendel-700 mb-2">Materiali pronti — lato docente</p>
+                    <p class="text-slate-600 text-sm">Piani di lezione, slide ed eserciziari pronti per la stampa in pochi minuti, con una grafica curata e coinvolgente.</p>
+                </div>
+            </div>
+
+            <!-- 1 MAGICSCHOOL -->
+            <article class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 sm:p-8 mb-8">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="w-11 h-11 rounded-xl bg-mendel-700 text-white flex items-center justify-center font-extrabold text-lg shrink-0">1</div>
+                    <div>
+                        <h4 class="text-xl font-bold text-mendel-900">MagicSchool AI</h4>
+                        <p class="text-sm text-slate-500 font-medium">Il coltellino svizzero per la progettazione</p>
+                    </div>
+                </div>
+                <p class="lead text-slate-700 mb-6">Attualmente la suite web più diffusa e strutturata a livello internazionale per il mondo della scuola (K-12). Offre oltre 60 strumenti (generator) presettati, progettati per risolvere specifiche mansioni burocratiche e didattiche dei docenti.</p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-mendel-50 rounded-xl p-5 border border-mendel-100">
+                        <h5 class="font-bold text-mendel-900 mb-3 flex items-center gap-2 text-sm uppercase tracking-wide"><i data-lucide="thumbs-up" class="w-4 h-4"></i> Punti di forza</h5>
+                        <ul class="space-y-3 text-sm text-slate-700">
+                            <li><strong class="text-mendel-800">Pianificazione a lungo termine:</strong> struttura intere UDA, patti formativi e sequenze di lezioni per il quadrimestre in pochi minuti.</li>
+                            <li><strong class="text-mendel-800">Differenziazione e inclusione:</strong> genera versioni multilivello dello stesso testo, a supporto degli adattamenti per alunni con BES o DSA.</li>
+                            <li><strong class="text-mendel-800">Parametri di valutazione personalizzati:</strong> crea rubric molto precise, tarando ad esempio la soglia di sufficienza (voto 6) esattamente al 60% del punteggio totale.</li>
+                            <li><strong class="text-mendel-800">Riduzione del carico burocratico:</strong> supporta bozze di verbali, comunicazioni scuola-famiglia e report sintetici.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
+                        <h5 class="font-bold text-slate-800 mb-3 flex items-center gap-2 text-sm uppercase tracking-wide"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Punti di debolezza</h5>
+                        <ul class="space-y-3 text-sm text-slate-700 list-disc pl-4">
+                            <li>La vasta offerta di strumenti nella dashboard può inizialmente generare disorientamento nei docenti meno digitalizzati.</li>
+                            <li>Funziona all'interno di un portale proprietario esterno, richiedendo il copia-incolla dei contenuti verso l'ecosistema di lavoro d'Istituto.</li>
+                        </ul>
+                        <div class="mt-4 pt-4 border-t border-slate-200">
+                            <h5 class="font-bold text-slate-800 mb-2 flex items-center gap-2 text-sm uppercase tracking-wide"><i data-lucide="languages" class="w-4 h-4"></i> Lingua italiana</h5>
+                            <p class="text-sm text-slate-700">Pienamente integrata: un menu a tendina consente di selezionare l'italiano come lingua di output, con risultati sintatticamente corretti anche sul lessico specialistico.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-mendel-700/5 border-l-4 border-mendel-700 rounded-r-xl p-5">
+                    <h5 class="font-bold text-mendel-900 mb-3 flex items-center gap-2"><i data-lucide="sprout" class="w-5 h-5"></i> Esempi pratici per l'IIS Mendel</h5>
+                    <ul class="space-y-3 text-sm text-slate-700">
+                        <li><strong>Lingua inglese / microlingua:</strong> generazione istantanea di un testo di <em>reading comprehension</em> a tema agrario (es. <em>Precision Farming and Drone Technology in Agriculture</em>) con 5 domande a risposta multipla, 3 domande aperte e glossario dei termini tecnici.</li>
+                        <li><strong>Valutazione:</strong> griglia analitica per una prova pratica di laboratorio o di agronomia, con 4 livelli di prestazione (Avanzato, Intermedio, Base, In via di prima acquisizione) e punteggi percentuali calcolati automaticamente con soglia del 60% per il 6.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- 2 BRISK -->
+            <article class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 sm:p-8 mb-8">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="w-11 h-11 rounded-xl bg-mendel-700 text-white flex items-center justify-center font-extrabold text-lg shrink-0">2</div>
+                    <div>
+                        <h4 class="text-xl font-bold text-mendel-900">Brisk Teaching</h4>
+                        <p class="text-sm text-slate-500 font-medium">La produttività integrata in Google Workspace</p>
+                    </div>
+                </div>
+                <p class="lead text-slate-700 mb-6">A differenza delle piattaforme basate su dashboard esterne, è un'estensione per il browser Google Chrome che si sovrappone direttamente all'interfaccia di lavoro del docente, operando nativamente dentro Google Docs, Slides, Moduli, Classroom e su qualsiasi pagina web.</p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-mendel-50 rounded-xl p-5 border border-mendel-100">
+                        <h5 class="font-bold text-mendel-900 mb-3 flex items-center gap-2 text-sm uppercase tracking-wide"><i data-lucide="thumbs-up" class="w-4 h-4"></i> Punti di forza</h5>
+                        <ul class="space-y-3 text-sm text-slate-700">
+                            <li><strong class="text-mendel-800">Zero cambio di scheda:</strong> non richiede di uscire da Google Workspace for Education in uso nell'Istituto.</li>
+                            <li><strong class="text-mendel-800">Modifica istantanea dei testi:</strong> seleziona un testo in un Doc o su un sito e ne cambia il livello di leggibilità con un solo click.</li>
+                            <li><strong class="text-mendel-800">Feedback strutturato:</strong> analizza l'elaborato dello studente in Google Docs e genera commenti puntuali divisi per categorie (punti di forza, aree di miglioramento, domande di stimolo).</li>
+                            <li><strong class="text-mendel-800">Quiz immediati:</strong> trasforma un articolo o una dispensa in un Google Modulo strutturato, con chiave di correzione inclusa.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
+                        <h5 class="font-bold text-slate-800 mb-3 flex items-center gap-2 text-sm uppercase tracking-wide"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Punti di debolezza</h5>
+                        <ul class="space-y-3 text-sm text-slate-700 list-disc pl-4">
+                            <li>Dipende strettamente dall'uso di Chrome su desktop o laptop: non è utilizzabile da dispositivi mobili privi di estensioni.</li>
+                            <li>Meno adatta alla creazione di progetti complessi a lungo termine rispetto a una suite dedicata come MagicSchool.</li>
+                        </ul>
+                        <div class="mt-4 pt-4 border-t border-slate-200">
+                            <h5 class="font-bold text-slate-800 mb-2 flex items-center gap-2 text-sm uppercase tracking-wide"><i data-lucide="languages" class="w-4 h-4"></i> Lingua italiana</h5>
+                            <p class="text-sm text-slate-700">Pienamente supportata: riconosce automaticamente la lingua del documento sorgente e genera commenti, riscritture e quiz in un italiano fluido e corretto.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-mendel-700/5 border-l-4 border-mendel-700 rounded-r-xl p-5">
+                    <h5 class="font-bold text-mendel-900 mb-3 flex items-center gap-2"><i data-lucide="sprout" class="w-5 h-5"></i> Esempi pratici per l'IIS Mendel</h5>
+                    <ul class="space-y-3 text-sm text-slate-700">
+                        <li><strong>Sostegno e inclusione / Lettere:</strong> aprire un articolo tecnico sull'impatto del cambiamento climatico sulle colture locali e usare <em>Change Reading Level</em> per riportarlo al livello della secondaria di primo grado, rendendolo accessibile agli studenti con fragilità linguistiche o di apprendimento.</li>
+                        <li><strong>Verifiche rapide:</strong> da una pagina web sulle malattie della vite (peronospora, oidio) generare automaticamente un quiz di 10 domande in Google Moduli, collegato al corso Classroom della classe.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- 3 SCHOOLAI -->
+            <article class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 sm:p-8">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="w-11 h-11 rounded-xl bg-mendel-700 text-white flex items-center justify-center font-extrabold text-lg shrink-0">3</div>
+                    <div>
+                        <h4 class="text-xl font-bold text-mendel-900">SchoolAI</h4>
+                        <p class="text-sm text-slate-500 font-medium">L'interazione sicura e il tutoraggio socratico per gli studenti</p>
+                    </div>
+                </div>
+                <p class="lead text-slate-700 mb-6">Mentre MagicSchool e Brisk sono strumenti progettati esclusivamente per l'uso del docente, SchoolAI è concepita per mettere l'IA direttamente nelle mani degli studenti all'interno di un ambiente sicuro, recintato e monitorato chiamato <strong>Space</strong>.</p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-mendel-50 rounded-xl p-5 border border-mendel-100">
+                        <h5 class="font-bold text-mendel-900 mb-3 flex items-center gap-2 text-sm uppercase tracking-wide"><i data-lucide="thumbs-up" class="w-4 h-4"></i> Punti di forza</h5>
+                        <ul class="space-y-3 text-sm text-slate-700">
+                            <li><strong class="text-mendel-800">Metodo socratico (guardrail didattici):</strong> l'IA è istruita per non fornire mai la risposta pronta né svolgere il compito al posto dell'alunno: pone domande guida, corregge i passaggi errati e conduce alla soluzione tramite il ragionamento.</li>
+                            <li><strong class="text-mendel-800">Monitoraggio in tempo reale:</strong> il docente legge da dashboard tutte le conversazioni in corso, rilevando subito chi è in difficoltà o fuori tema.</li>
+                            <li><strong class="text-mendel-800">Accesso senza registrazione:</strong> gli studenti non creano un account personale: entrano nello Space con un codice alfanumerico e un nome di battesimo.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
+                        <h5 class="font-bold text-slate-800 mb-3 flex items-center gap-2 text-sm uppercase tracking-wide"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Punti di debolezza</h5>
+                        <ul class="space-y-3 text-sm text-slate-700 list-disc pl-4">
+                            <li>Richiede un lavoro preliminare di "regia" e testing dei prompt da parte del docente prima di proporre lo Space alla classe.</li>
+                            <li>Necessita che gli studenti abbiano un dispositivo connesso (PC, tablet o smartphone in modalità BYOD autorizzata).</li>
+                        </ul>
+                        <div class="mt-4 pt-4 border-t border-slate-200">
+                            <h5 class="font-bold text-slate-800 mb-2 flex items-center gap-2 text-sm uppercase tracking-wide"><i data-lucide="languages" class="w-4 h-4"></i> Lingua italiana</h5>
+                            <p class="text-sm text-slate-700">Ottima: il docente può impostare le istruzioni del bot in italiano o richiedere che il sistema risponda esclusivamente in lingua straniera per le lezioni di microlingua.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-mendel-700/5 border-l-4 border-mendel-700 rounded-r-xl p-5">
+                    <h5 class="font-bold text-mendel-900 mb-3 flex items-center gap-2"><i data-lucide="sprout" class="w-5 h-5"></i> Esempi pratici per l'IIS Mendel</h5>
+                    <ul class="space-y-3 text-sm text-slate-700">
+                        <li><strong>Agronomia / Gestione dell'Ambiente e del Territorio (GAT):</strong> uno Space in cui l'IA interpreta un "Perito Agrario Consulente" e presenta un caso di studio (terreno con problemi di acidità e scarso drenaggio); gli studenti dialogano con il sistema ponendo le domande giuste per formulare diagnosi e piano di concimazione.</li>
+                        <li><strong>Lingua inglese (conversazione tecnica):</strong> il bot simula un agricoltore biologico madrelingua inglese; gli studenti lo intervistano in lingua per raccogliere informazioni sulle tecniche di produzione e sintetizzarle in una relazione.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- 4 TEACHY -->
+            <article class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 sm:p-8 mt-8">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="w-11 h-11 rounded-xl bg-mendel-700 text-white flex items-center justify-center font-extrabold text-lg shrink-0">4</div>
+                    <div>
+                        <h4 class="text-xl font-bold text-mendel-900">Teachy</h4>
+                        <p class="text-sm text-slate-500 font-medium">Materiali pronti e slide accattivanti in pochi minuti</p>
+                    </div>
+                </div>
+                <p class="lead text-slate-700 mb-6">Strumento pensato per velocizzare la creazione di materiali già pronti da usare direttamente in aula: piani di lezione strutturati, presentazioni e eserciziari stampabili, con una veste grafica curata e coinvolgente. Utilizzato in prima persona da un collega dell'Istituto, si è dimostrato particolarmente efficace nei giorni con poco tempo per la progettazione.</p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-mendel-50 rounded-xl p-5 border border-mendel-100">
+                        <h5 class="font-bold text-mendel-900 mb-3 flex items-center gap-2 text-sm uppercase tracking-wide"><i data-lucide="thumbs-up" class="w-4 h-4"></i> Punti di forza</h5>
+                        <ul class="space-y-3 text-sm text-slate-700">
+                            <li><strong class="text-mendel-800">Velocità estrema:</strong> genera in pochi minuti un piano di lezione completo, di slide ed esercizi pronti per la stampa.</li>
+                            <li><strong class="text-mendel-800">Veste grafica accattivante:</strong> layout colorati e curati, utili per mantenere alta l'attenzione anche nelle ore più impegnative.</li>
+                            <li><strong class="text-mendel-800">Eserciziari pronti all'uso:</strong> schede stampabili immediatamente utilizzabili, senza bisogno di rielaborazione grafica successiva.</li>
+                            <li><strong class="text-mendel-800">Lezioni "chiavi in mano":</strong> molto utile in caso di supplenza, imprevisto, o semplicemente quando manca il tempo per progettare da zero.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
+                        <h5 class="font-bold text-slate-800 mb-3 flex items-center gap-2 text-sm uppercase tracking-wide"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Punti di debolezza</h5>
+                        <ul class="space-y-3 text-sm text-slate-700 list-disc pl-4">
+                            <li>Meno personalizzabile in profondità rispetto a MagicSchool su rubric di valutazione complesse o articolate.</li>
+                            <li>L'impostazione grafica, nata soprattutto per la primaria e la secondaria di primo grado, richiede in alcuni casi un adattamento quando si lavora su contenuti tecnici e professionalizzanti del secondo grado.</li>
+                        </ul>
+                        <div class="mt-4 pt-4 border-t border-slate-200">
+                            <h5 class="font-bold text-slate-800 mb-2 flex items-center gap-2 text-sm uppercase tracking-wide"><i data-lucide="languages" class="w-4 h-4"></i> Lingua italiana</h5>
+                            <p class="text-sm text-slate-700">Pienamente supportata, con output in un italiano naturale e corretto anche nei materiali stampabili.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-mendel-700/5 border-l-4 border-mendel-700 rounded-r-xl p-5">
+                    <h5 class="font-bold text-mendel-900 mb-3 flex items-center gap-2"><i data-lucide="sprout" class="w-5 h-5"></i> Esempi pratici per l'IIS Mendel</h5>
+                    <ul class="space-y-3 text-sm text-slate-700">
+                        <li><strong>Lezione express last-minute:</strong> in caso di sostituzione imprevista, generare in pochi minuti un piano di lezione con slide pronte su un argomento di attualità agraria, senza tempo di preparazione a disposizione.</li>
+                        <li><strong>Ripasso autonomo:</strong> creare un eserciziario stampabile su un argomento tecnico già trattato in classe, da lasciare come lavoro autonomo o compito per casa.</li>
+                    </ul>
+                </div>
+            </article>
+        </section>
+
+        <!-- CONFRONTO -->
+        <section id="confronto" class="scroll-mt-40 mb-16">
+            <h3 class="text-2xl font-bold text-mendel-900 mb-3 flex items-center gap-2">
+                <i data-lucide="table-2" class="w-6 h-6 text-mendel-700"></i> Parte 2 — Matrice di confronto comparativo
+            </h3>
+            <p class="lead text-slate-600 mb-6">Quadro sinottico per orientare la scelta in base all'obiettivo didattico della lezione o dell'attività da svolgere.</p>
+
+            <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-sm bg-white mb-12">
+                <table class="w-full text-sm min-w-[720px]">
+                    <thead>
+                        <tr class="bg-mendel-800 text-white text-left">
+                            <th class="p-4 font-semibold w-56">Caratteristica</th>
+                            <th class="p-4 font-semibold">MagicSchool AI</th>
+                            <th class="p-4 font-semibold">Brisk Teaching</th>
+                            <th class="p-4 font-semibold">SchoolAI</th>
+                            <th class="p-4 font-semibold">Teachy</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200">
+                        <tr>
+                            <th scope="row" class="p-4 text-left font-semibold text-mendel-900 bg-mendel-50">Utente destinatario</th>
+                            <td class="p-4 text-slate-700">Docente (progettazione a casa/ufficio)</td>
+                            <td class="p-4 text-slate-700">Docente (correzione e adattamento)</td>
+                            <td class="p-4 text-slate-700">Studente (attività interattiva in classe/laboratorio)</td>
+                            <td class="p-4 text-slate-700">Docente (materiali pronti per la lezione)</td>
+                        </tr>
+                        <tr class="bg-slate-50/60">
+                            <th scope="row" class="p-4 text-left font-semibold text-mendel-900 bg-mendel-50">Modalità operativa</th>
+                            <td class="p-4 text-slate-700">Dashboard web su portale esterno</td>
+                            <td class="p-4 text-slate-700">Estensione Chrome integrata nei file Google</td>
+                            <td class="p-4 text-slate-700">Stanza virtuale (Space) con codice di accesso</td>
+                            <td class="p-4 text-slate-700">Dashboard web su portale esterno</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="p-4 text-left font-semibold text-mendel-900 bg-mendel-50">Curva di apprendimento</th>
+                            <td class="p-4 text-slate-700">Media (interfaccia ricca di opzioni e template)</td>
+                            <td class="p-4 text-slate-700">Bassa (interfaccia minimale, molto intuitiva)</td>
+                            <td class="p-4 text-slate-700">Medio-alta (richiede testing dei comandi del bot)</td>
+                            <td class="p-4 text-slate-700">Bassa (interfaccia guidata e immediata)</td>
+                        </tr>
+                        <tr class="bg-slate-50/60">
+                            <th scope="row" class="p-4 text-left font-semibold text-mendel-900 bg-mendel-50">Integrazione Google Workspace</th>
+                            <td class="p-4 text-slate-700">Esportazione con tasto dedicato in Docs/Moduli</td>
+                            <td class="p-4 text-slate-700">Nativa (opera dentro Docs/Slides/Moduli)</td>
+                            <td class="p-4 text-slate-700">Accesso docente con account Google d'Istituto</td>
+                            <td class="p-4 text-slate-700">Esportazione manuale verso Slides/Docs</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="p-4 text-left font-semibold text-mendel-900 bg-mendel-50">Supporto lingua italiana</th>
+                            <td class="p-4 text-slate-700">Pieno e selezionabile dal menu</td>
+                            <td class="p-4 text-slate-700">Pieno e automatico in base al testo</td>
+                            <td class="p-4 text-slate-700">Pieno e configurabile nelle istruzioni del bot</td>
+                            <td class="p-4 text-slate-700">Pieno e naturale</td>
+                        </tr>
+                        <tr class="bg-slate-50/60">
+                            <th scope="row" class="p-4 text-left font-semibold text-mendel-900 bg-mendel-50">Piano gratuito (freemium)</th>
+                            <td class="p-4 text-slate-700">Ampia disponibilità di funzioni base gratuite</td>
+                            <td class="p-4 text-slate-700">Ottimo per le funzioni principali di adattamento</td>
+                            <td class="p-4 text-slate-700">Gratuito per le funzionalità K-12 fondamentali</td>
+                            <td class="p-4 text-slate-700">Buona disponibilità di funzioni base gratuite</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="p-4 text-left font-semibold text-mendel-900 bg-mendel-50">Inclusione / BES / DSA</th>
+                            <td class="p-4 text-slate-700">Eccellente (testi semplificati e schemi)</td>
+                            <td class="p-4 text-slate-700">Eccellente (livello di lettura in 1 click)</td>
+                            <td class="p-4 text-slate-700">Buono (letture assistite e risposte guidate)</td>
+                            <td class="p-4 text-slate-700">Buono (materiali visivi semplificati)</td>
+                        </tr>
+                        <tr class="bg-slate-50/60">
+                            <th scope="row" class="p-4 text-left font-semibold text-mendel-900 bg-mendel-50">Coinvolgimento studenti</th>
+                            <td class="p-4 text-slate-700">Indiretto (fruizione di materiali creati dall'IA)</td>
+                            <td class="p-4 text-slate-700">Indiretto (fruizione di quiz e feedback)</td>
+                            <td class="p-4 text-slate-700">Diretto e attivo (dialogo socratico in tempo reale)</td>
+                            <td class="p-4 text-slate-700">Indiretto (fruizione di materiali pronti)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+                    <h4 class="font-bold text-mendel-900 mb-1">Profilo comparativo delle quattro piattaforme</h4>
+                    <p class="text-sm text-slate-500 mb-4">Valutazione qualitativa su scala 1–5 elaborata dalla matrice di confronto.</p>
+                    <div class="h-80"><canvas id="radarChart"></canvas></div>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+                    <h4 class="font-bold text-mendel-900 mb-1">Facilità d'avvio e tempo di messa in opera</h4>
+                    <p class="text-sm text-slate-500 mb-4">Quanto è rapido, per un collega, iniziare a usarla in autonomia (5 = immediato).</p>
+                    <div class="h-80"><canvas id="barChart"></canvas></div>
+                </div>
+            </div>
+
+            <div class="bg-mendel-700/5 border-l-4 border-mendel-700 rounded-r-xl p-6 mt-6">
+                <p class="lead text-slate-700"><strong class="text-mendel-900">In sintesi:</strong> le quattro piattaforme non sono in concorrenza fra loro, ma coprono quattro momenti diversi del lavoro docente. MagicSchool progetta in profondità, Teachy produce materiali pronti in pochi minuti, Brisk corregge e adatta, SchoolAI porta l'IA in classe in modo controllato.</p>
+            </div>
+        </section>
+
+        <!-- ALTERNATIVE -->
+        <section id="alternative" class="scroll-mt-40 mb-16">
+            <h3 class="text-2xl font-bold text-mendel-900 mb-3 flex items-center gap-2">
+                <i data-lucide="filter" class="w-6 h-6 text-mendel-700"></i> Parte 3 — Alternative valutate ed escluse dal corso base
+            </h3>
+            <p class="lead text-slate-600 mb-8">Durante l'analisi sono state valutate altre piattaforme note nel panorama EdTech. Per evitare un sovraccarico cognitivo nei colleghi si è deciso di non includerle nella parte pratica, pur riconoscendone il valore.</p>
+
+            <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-sm bg-white">
+                <table class="w-full text-sm min-w-[760px]">
+                    <thead>
+                        <tr class="bg-slate-800 text-white text-left">
+                            <th class="p-4 font-semibold w-40">Piattaforma</th>
+                            <th class="p-4 font-semibold">Caratteristiche</th>
+                            <th class="p-4 font-semibold w-32">Italiano</th>
+                            <th class="p-4 font-semibold">Motivazione dell'esclusione</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200">
+                        <tr>
+                            <th scope="row" class="p-4 text-left font-bold text-mendel-900 align-top">Monsha AI</th>
+                            <td class="p-4 text-slate-700 align-top">Piattaforma web articolata, simile a MagicSchool per struttura e strumenti (lezioni, domande di verifica, sintesi). Ottima esportazione verso LMS come Moodle e Canvas.</td>
+                            <td class="p-4 align-top"><span class="inline-flex items-center gap-1 bg-mendel-50 text-mendel-800 font-semibold px-2.5 py-1 rounded-full text-xs">Presente</span></td>
+                            <td class="p-4 text-slate-700 align-top">Funzionalmente sovrapponibile a MagicSchool AI. Si è preferito concentrare l'attenzione su un'unica suite per la progettazione asincrona, evitando di frammentare l'apprendimento su portali con grafiche e flussi differenti.</td>
+                        </tr>
+                        <tr class="bg-slate-50/60">
+                            <th scope="row" class="p-4 text-left font-bold text-mendel-900 align-top">Curipod</th>
+                            <td class="p-4 text-slate-700 align-top">Strumento per presentazioni interattive in tempo reale (sulla scia di Mentimeter o Nearpod): gli studenti rispondono dal vivo da smartphone con disegni, parole chiave, testi o votazioni, elaborate all'istante.</td>
+                            <td class="p-4 align-top"><span class="inline-flex items-center gap-1 bg-mendel-50 text-mendel-800 font-semibold px-2.5 py-1 rounded-full text-xs">Presente</span></td>
+                            <td class="p-4 text-slate-700 align-top">Sposta il baricentro sulla lezione frontale interattiva "live", che richiede copertura Wi-Fi ineccepibile e gestione rigorosa dei dispositivi. Nel corso base si è data priorità alla progettazione asincrona e all'inclusione, rinviando l'IA "live-interactive" a un modulo avanzato.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- NORMATIVA -->
+        <section id="normativa" class="scroll-mt-40 mb-16">
+            <h3 class="text-2xl font-bold text-mendel-900 mb-3 flex items-center gap-2">
+                <i data-lucide="scale" class="w-6 h-6 text-mendel-700"></i> Parte 4 — Quadro normativo, privacy e GDPR
+            </h3>
+            <div class="bg-mendel-700/5 border-l-4 border-mendel-700 rounded-r-xl p-6 mb-8">
+                <p class="lead text-slate-700">La convinzione che <em>"l'IA sia vietata a scuola"</em> è errata: la normativa europea e ministeriale ne <strong>incoraggia l'adozione</strong>, purché siano rispettate le regole di tutela dei dati personali e la centralità della figura docente.</p>
+            </div>
+
+            <h4 class="text-lg font-bold text-mendel-900 mb-4 flex items-center gap-2"><i data-lucide="user-cog" class="w-5 h-5 text-mendel-700"></i> 1. Utilizzo "lato docente" (MagicSchool AI, Brisk Teaching)</h4>
+            <p class="text-slate-600 mb-4 text-sm">Quando il docente impiega l'IA come assistente personale per preparare materiale didattico, griglie di valutazione, traduzioni o schede di ripasso.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <i data-lucide="shield-off" class="w-8 h-8 text-mendel-600 mb-3"></i>
+                    <h5 class="font-bold text-mendel-900 mb-2">Privacy by design <span class="block text-xs font-medium text-slate-500">Art. 25 GDPR</span></h5>
+                    <p class="text-slate-600 text-sm">È <strong>assolutamente vietato</strong> inserire nei prompt o nei documenti caricati dati personali identificativi (PII) riferibili agli studenti: nomi, cognomi, date di nascita, dettagli sulla salute, stralci di diagnosi di disabilità o riferimenti espliciti a PEI e PDP.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <i data-lucide="file-check" class="w-8 h-8 text-mendel-600 mb-3"></i>
+                    <h5 class="font-bold text-mendel-900 mb-2">Autorizzazioni e liberatorie</h5>
+                    <p class="text-slate-600 text-sm">Se i dati trattati sono rigorosamente anonimi (es. «crea un testo di livello A2 per un ragazzo di 15 anni con difficoltà di concentrazione», senza nomi), <strong>non è richiesta alcuna liberatoria</strong> alle famiglie: l'IA è equiparata a un software di elaborazione testi o a un motore di ricerca avanzato a supporto della professionalità docente.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <i data-lucide="user-check" class="w-8 h-8 text-mendel-600 mb-3"></i>
+                    <h5 class="font-bold text-mendel-900 mb-2">Human in the loop</h5>
+                    <p class="text-slate-600 text-sm">Come rimarcato dalle Linee Guida MIM 2025, l'IA generativa non sostituisce mai il giudizio valutativo dell'insegnante. L'output è sempre una <strong>bozza di lavoro</strong>: la responsabilità del contenuto, della verifica e del voto resta interamente in capo al docente (principio di spiegabilità).</p>
+                </div>
+            </div>
+
+            <h4 class="text-lg font-bold text-mendel-900 mb-4 flex items-center gap-2"><i data-lucide="users" class="w-5 h-5 text-mendel-700"></i> 2. Utilizzo "lato studente" (SchoolAI e chatbot didattici)</h4>
+            <p class="text-slate-600 mb-4 text-sm">Quando gli studenti interagiscono direttamente con un sistema di IA all'interno della didattica d'aula.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <i data-lucide="key-round" class="w-8 h-8 text-mendel-600 mb-3"></i>
+                    <h5 class="font-bold text-mendel-900 mb-2">Accesso e anonimato</h5>
+                    <p class="text-slate-600 text-sm">Per la tutela dei minori si raccomanda l'uso di piattaforme che consentono l'accesso <strong>tramite codice stanza</strong>, senza creazione di account con email private. Agli alunni si chiede unicamente il nome di battesimo o un nickname concordato con l'insegnante.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <i data-lucide="file-signature" class="w-8 h-8 text-mendel-600 mb-3"></i>
+                    <h5 class="font-bold text-mendel-900 mb-2">Informative e patto educativo</h5>
+                    <p class="text-slate-600 text-sm">L'utilizzo continuativo di strumenti di IA da parte degli studenti deve essere previsto e coperto dall'<strong>Informativa Privacy d'Istituto</strong> consegnata alle famiglie e richiamato nel <strong>Patto Educativo di Corresponsabilità</strong> sottoscritto all'atto dell'iscrizione.</p>
+                </div>
+            </div>
+
+            <h4 class="text-lg font-bold text-mendel-900 mb-4 flex items-center gap-2"><i data-lucide="library" class="w-5 h-5 text-mendel-700"></i> 3. I cinque capisaldi normativi e di riferimento</h4>
+            <ol class="relative border-l-2 border-mendel-700/30 ml-3 space-y-8">
+                <li class="ml-6">
+                    <span class="absolute -left-2.5 w-5 h-5 bg-mendel-700 rounded-full"></span>
+                    <h5 class="font-bold text-mendel-900"><a href="https://agrariomendel.edu.it/la-scuola/le-carte/223-regolamento-per-luso-dellintelligenza-artificiale" target="_blank" rel="noopener" class="hover:underline inline-flex items-center gap-1.5">Regolamento per l'uso dell'IA dell'IIS G. Mendel <i data-lucide="external-link" class="w-3.5 h-3.5"></i></a></h5>
+                    <p class="text-xs font-semibold text-mendel-700 uppercase tracking-wide mb-2">Prot. 0007790 del 09/07/2026 — Versione 1.0</p>
+                    <p class="text-slate-600 text-sm">Approvato dal Collegio dei Docenti e dal Consiglio di Istituto, costituisce la norma interna. <strong>Autorizza e disciplina</strong> l'uso dell'IA per finalità didattiche e amministrative, promuovendo la cultura della sicurezza digitale, l'integrazione nell'Educazione Civica e la trasparenza verso l'utenza.</p>
+                </li>
+                <li class="ml-6">
+                    <span class="absolute -left-2.5 w-5 h-5 bg-mendel-700 rounded-full"></span>
+                    <h5 class="font-bold text-mendel-900"><a href="https://www.mim.gov.it/documents/20182/0/MIM_Linee+guida+IA+nella+Scuola_09_08_2025-signed.pdf/b70fdc45-4b75-1f7e-73bf-eab12989b928" target="_blank" rel="noopener" class="hover:underline inline-flex items-center gap-1.5">Linee Guida MIM per l'introduzione dell'IA nelle Istituzioni Scolastiche <i data-lucide="external-link" class="w-3.5 h-3.5"></i></a></h5>
+                    <p class="text-xs font-semibold text-mendel-700 uppercase tracking-wide mb-2">Versione 1.0 — Anno 2025</p>
+                    <p class="text-slate-600 text-sm">Documento d'indirizzo del Ministero dell'Istruzione e del Merito che fissa i requisiti etici (centralità della persona, equità, inclusione), tecnici (accuratezza, robustezza) e normativi per le scuole italiane, fornendo il quadro per la mitigazione dei rischi e la consapevolezza nell'uso dell'IA.</p>
+                </li>
+                <li class="ml-6">
+                    <span class="absolute -left-2.5 w-5 h-5 bg-mendel-700 rounded-full"></span>
+                    <h5 class="font-bold text-mendel-900"><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj?locale=it" target="_blank" rel="noopener" class="hover:underline inline-flex items-center gap-1.5">Regolamento Europeo sull'Intelligenza Artificiale — AI Act <i data-lucide="external-link" class="w-3.5 h-3.5"></i></a></h5>
+                    <p class="text-xs font-semibold text-mendel-700 uppercase tracking-wide mb-2">Regolamento UE 2024/1689</p>
+                    <p class="text-slate-600 text-sm">Classifica i sistemi di IA in base al livello di rischio. Mentre i sistemi usati per la valutazione sistematica o l'ammissione agli studi possono ricadere in categorie a rischio più elevato, <strong>i chatbot didattici e gli assistenti di scrittura usati nel nostro Istituto ricadono nella categoria a rischio limitato o minimo</strong>: richiedono principalmente il rispetto degli obblighi di trasparenza, ossia che docenti e studenti siano sempre informati di stare interagendo con un sistema di intelligenza artificiale.</p>
+                </li>
+                <li class="ml-6">
+                    <span class="absolute -left-2.5 w-5 h-5 bg-mendel-700 rounded-full"></span>
+                    <h5 class="font-bold text-mendel-900"><a href="https://scuolafutura.pubblica.istruzione.it/risorse/digcompedu" target="_blank" rel="noopener" class="hover:underline inline-flex items-center gap-1.5">DigCompEdu — Quadro europeo delle competenze digitali dei docenti <i data-lucide="external-link" class="w-3.5 h-3.5"></i></a></h5>
+                    <p class="text-xs font-semibold text-mendel-700 uppercase tracking-wide mb-2">Commissione Europea — versione italiana su Scuola Futura</p>
+                    <p class="text-slate-600 text-sm">Framework di riferimento per le competenze digitali dei docenti, articolato in 6 aree (dal coinvolgimento professionale alla promozione delle competenze digitali degli studenti). Le piattaforme di questo corso si collocano prevalentemente nell'area "Insegnamento e apprendimento" e in quella dedicata alla "Valutazione".</p>
+                </li>
+                <li class="ml-6">
+                    <span class="absolute -left-2.5 w-5 h-5 bg-mendel-700 rounded-full"></span>
+                    <h5 class="font-bold text-mendel-900"><a href="https://repubblicadigitale.gov.it/portale/-/digcomp-3.0" target="_blank" rel="noopener" class="hover:underline inline-flex items-center gap-1.5">DigComp 3.0 — Quadro europeo delle competenze digitali dei cittadini <i data-lucide="external-link" class="w-3.5 h-3.5"></i></a></h5>
+                    <p class="text-xs font-semibold text-mendel-700 uppercase tracking-wide mb-2">Commissione Europea — Repubblica Digitale</p>
+                    <p class="text-slate-600 text-sm">Aggiornamento del framework DigComp che introduce per la prima volta una dimensione specifica sull'intelligenza artificiale, utile per calibrare le attività proposte agli studenti sul loro effettivo livello di competenza digitale.</p>
+                </li>
+            </ol>
+        </section>
+
+        <!-- CONFORMITA -->
+        <section id="conformita" class="scroll-mt-40">
+            <h3 class="text-2xl font-bold text-mendel-900 mb-3 flex items-center gap-2">
+                <i data-lucide="shield-check" class="w-6 h-6 text-mendel-700"></i> Quadro di conformità — prospetto per la Presidenza
+            </h3>
+            <p class="lead text-slate-600 mb-6">Schema riassuntivo dell'inquadramento normativo dei quattro strumenti proposti, con le condizioni d'uso che ne garantiscono la conformità.</p>
+
+            <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-sm bg-white mb-8">
+                <table class="w-full text-sm min-w-[820px]">
+                    <thead>
+                        <tr class="bg-mendel-800 text-white text-left">
+                            <th class="p-4 font-semibold w-44">Profilo di conformità</th>
+                            <th class="p-4 font-semibold">MagicSchool AI</th>
+                            <th class="p-4 font-semibold">Brisk Teaching</th>
+                            <th class="p-4 font-semibold">SchoolAI</th>
+                            <th class="p-4 font-semibold">Teachy</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200">
+                        <tr>
+                            <th scope="row" class="p-4 text-left font-semibold text-mendel-900 bg-mendel-50">Classificazione AI Act<br><span class="font-normal text-xs text-slate-500">Reg. UE 2024/1689</span></th>
+                            <td class="p-4 text-slate-700">Rischio minimo/limitato — assistente di scrittura per il docente</td>
+                            <td class="p-4 text-slate-700">Rischio minimo/limitato — assistente di scrittura per il docente</td>
+                            <td class="p-4 text-slate-700">Rischio limitato — chatbot didattico con obblighi di trasparenza</td>
+                            <td class="p-4 text-slate-700">Rischio minimo/limitato — generatore di materiali didattici per il docente</td>
+                        </tr>
+                        <tr class="bg-slate-50/60">
+                            <th scope="row" class="p-4 text-left font-semibold text-mendel-900 bg-mendel-50">Trattamento di dati personali degli studenti</th>
+                            <td class="p-4 text-slate-700">Nessuno, se il docente rispetta il divieto di inserire PII nei prompt</td>
+                            <td class="p-4 text-slate-700">Nessuno, se il docente rispetta il divieto di inserire PII nei prompt</td>
+                            <td class="p-4 text-slate-700">Minimizzato: accesso con codice stanza e solo nome di battesimo o nickname</td>
+                            <td class="p-4 text-slate-700">Nessuno, se il docente rispetta il divieto di inserire PII nei prompt</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="p-4 text-left font-semibold text-mendel-900 bg-mendel-50">Liberatoria delle famiglie</th>
+                            <td class="p-4 text-slate-700">Non richiesta con uso anonimo</td>
+                            <td class="p-4 text-slate-700">Non richiesta con uso anonimo</td>
+                            <td class="p-4 text-slate-700">Coperta da Informativa Privacy d'Istituto e Patto Educativo di Corresponsabilità</td>
+                            <td class="p-4 text-slate-700">Non richiesta con uso anonimo</td>
+                        </tr>
+                        <tr class="bg-slate-50/60">
+                            <th scope="row" class="p-4 text-left font-semibold text-mendel-900 bg-mendel-50">Human in the loop<br><span class="font-normal text-xs text-slate-500">Linee Guida MIM 2025</span></th>
+                            <td class="p-4 text-slate-700">Garantito: output sempre bozza di lavoro, valutazione in capo al docente</td>
+                            <td class="p-4 text-slate-700">Garantito: feedback e quiz sempre revisionati dal docente</td>
+                            <td class="p-4 text-slate-700">Garantito: dashboard di monitoraggio delle conversazioni in tempo reale</td>
+                            <td class="p-4 text-slate-700">Garantito: materiali sempre rivisti e validati dal docente prima dell'uso in classe</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="p-4 text-left font-semibold text-mendel-900 bg-mendel-50">Regolamento d'Istituto<br><span class="font-normal text-xs text-slate-500">Prot. 0007790/2026</span></th>
+                            <td class="p-4 text-slate-700">Uso didattico e amministrativo autorizzato e disciplinato</td>
+                            <td class="p-4 text-slate-700">Uso didattico e amministrativo autorizzato e disciplinato</td>
+                            <td class="p-4 text-slate-700">Uso in aula autorizzato, con obbligo di trasparenza verso studenti e famiglie</td>
+                            <td class="p-4 text-slate-700">Uso didattico e amministrativo autorizzato e disciplinato</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+                    <h4 class="font-bold text-mendel-900 mb-4 flex items-center gap-2"><i data-lucide="check-circle-2" class="w-5 h-5 text-mendel-700"></i> Cosa si può fare</h4>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-mendel-600 shrink-0 mt-0.5"></i> Progettare UDA, lezioni, verifiche e griglie di valutazione.</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-mendel-600 shrink-0 mt-0.5"></i> Semplificare e differenziare i testi per BES e DSA, in forma anonima.</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-mendel-600 shrink-0 mt-0.5"></i> Generare quiz e feedback strutturati, sempre revisionati dal docente.</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-mendel-600 shrink-0 mt-0.5"></i> Far interagire gli studenti con l'IA in ambienti monitorati e con accesso anonimo.</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-mendel-600 shrink-0 mt-0.5"></i> Dichiarare sempre a studenti e famiglie l'uso di sistemi di IA.</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+                    <h4 class="font-bold text-slate-800 mb-4 flex items-center gap-2"><i data-lucide="x-circle" class="w-5 h-5 text-slate-500"></i> Cosa non si deve fare</h4>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="flex gap-2"><i data-lucide="x" class="w-4 h-4 text-slate-500 shrink-0 mt-0.5"></i> Inserire nomi, cognomi o date di nascita degli studenti nei prompt.</li>
+                        <li class="flex gap-2"><i data-lucide="x" class="w-4 h-4 text-slate-500 shrink-0 mt-0.5"></i> Caricare dati sulla salute, diagnosi, PEI o PDP.</li>
+                        <li class="flex gap-2"><i data-lucide="x" class="w-4 h-4 text-slate-500 shrink-0 mt-0.5"></i> Delegare all'IA l'attribuzione del voto o il giudizio valutativo.</li>
+                        <li class="flex gap-2"><i data-lucide="x" class="w-4 h-4 text-slate-500 shrink-0 mt-0.5"></i> Far creare agli studenti account personali con email private.</li>
+                        <li class="flex gap-2"><i data-lucide="x" class="w-4 h-4 text-slate-500 shrink-0 mt-0.5"></i> Pubblicare o utilizzare output dell'IA senza verifica dei contenuti.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-mendel-700/5 border-l-4 border-mendel-700 rounded-r-xl p-6 mt-8">
+                <p class="lead text-slate-700"><strong class="text-mendel-900">Conclusione per la Presidenza:</strong> le quattro piattaforme proposte si collocano nelle categorie a rischio minimo o limitato dell'AI Act e risultano compatibili con le Linee Guida MIM 2025 e con il Regolamento d'Istituto, a condizione che siano rispettati il divieto di trattamento di dati identificativi degli studenti, la validazione umana di ogni output e gli obblighi di trasparenza verso l'utenza.</p>
+            </div>
+        </section>
+    </main>
+</div>
+
+<footer>
+  <p>IIS Gregorio Mendel — Villa Cortese (MI) &nbsp;·&nbsp; Team Digitale</p>
+  <p>Via Ferrazzi 15 · 20035 Villa Cortese (MI)</p>
+  <p>In conformità alle Linee Guida MIM 2025 e al Regolamento IA d'Istituto</p>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Torna su">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.set([".hero-logo",".hero-eyebrow",".hero-title",".hero-subtitle",".btn-primary",".scroll-indicator"],{opacity:0,y:30});
+  const heroTl = gsap.timeline({delay:.2});
+  heroTl
+    .to(".hero-logo",{opacity:1,y:0,duration:.6,ease:"power3.out"})
+    .to(".hero-eyebrow",{opacity:1,y:0,duration:.6,ease:"power3.out"},"-=0.35")
+    .to(".hero-title",{opacity:1,y:0,duration:1.0,ease:"power3.out"},"-=0.3")
+    .to(".hero-subtitle",{opacity:1,y:0,duration:.8,ease:"power2.out"},"-=0.5")
+    .to(".hero .btn-primary",{opacity:1,y:0,duration:.7,ease:"power2.out"},"-=0.4")
+    .to(".scroll-indicator",{opacity:1,y:0,duration:.5,ease:"power2.out"},"-=0.2");
+
+  const hero = document.querySelector('.hero');
+  hero.addEventListener('mousemove', (e)=>{
+    const rect = hero.getBoundingClientRect();
+    const xPct = (e.clientX - rect.left)/rect.width - 0.5;
+    const yPct = (e.clientY - rect.top)/rect.height - 0.5;
+    gsap.to(".hero-shapes-back",{duration:2,x:xPct*-45,y:yPct*-22,ease:"power1.out"});
+    gsap.to(".hero-shapes-mid",{duration:1.5,x:xPct*-22,y:yPct*-11,ease:"power1.out"});
+    gsap.to(".hero-content",{duration:1.2,x:xPct*8,y:yPct*5,ease:"power1.out"});
+  });
+
+  gsap.set(".why-card",{opacity:0,y:45,rotateX:14,transformPerspective:900,transformOrigin:"top center"});
+  gsap.to(".why-card",{
+    scrollTrigger:{trigger:".why-section",start:"top 70%"},
+    opacity:1,y:0,rotateX:0,duration:.7,stagger:.12,ease:"power2.out"
+  });
+
+  gsap.from(".program-item",{
+    scrollTrigger:{trigger:".program",start:"top 70%"},
+    opacity:0,y:30,duration:.6,stagger:.1,ease:"power2.out"
+  });
+
+  gsap.from(".example-card",{
+    scrollTrigger:{trigger:".examples-section",start:"top 72%"},
+    opacity:0,y:35,duration:.6,stagger:.12,ease:"power2.out"
+  });
+
+  gsap.from(".method-card",{
+    scrollTrigger:{trigger:".method-section",start:"top 75%"},
+    opacity:0,y:30,duration:.6,stagger:.08,ease:"power2.out"
+  });
+
+  gsap.from(".framework-box",{
+    scrollTrigger:{trigger:".framework-box",start:"top 78%"},
+    opacity:0,y:30,duration:.7,ease:"power2.out"
+  });
+
+  gsap.from(".glossary-section .glossary-list",{
+    scrollTrigger:{trigger:".glossary-section",start:"top 75%"},
+    opacity:0,y:25,duration:.6,stagger:.06,ease:"power2.out"
+  });
+
+  gsap.from(".biblio-item",{
+    scrollTrigger:{trigger:".biblio-list",start:"top 78%"},
+    opacity:0,y:20,duration:.5,stagger:.08,ease:"power2.out"
+  });
+
+  gsap.from(".audience-box",{
+    scrollTrigger:{trigger:".audience-box",start:"top 78%"},
+    opacity:0,y:30,duration:.8,ease:"power2.out"
+  });
+
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', ()=>{
+    if(window.scrollY > 480){ backToTop.classList.add('visible'); }
+    else{ backToTop.classList.remove('visible'); }
+  });
+  backToTop.addEventListener('click', ()=>{
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  // ---------- TAB SWITCHER: Corso / Piattaforme ----------
+  var chartsInitialized = false;
+  function initPiattaformeCharts() {
+    if (chartsInitialized) return;
+    chartsInitialized = true;
+    if (window.Chart) {
+        const verde = { magic:'#2e7d32', brisk:'#43a047', school:'#123c16', teachy:'#7cb342' };
+        Chart.defaults.font.family = "Inter, system-ui, sans-serif";
+        Chart.defaults.color = '#475569';
+
+        new Chart(document.getElementById('radarChart'), {
+            type: 'radar',
+            data: {
+                labels: ['Progettazione','Integrazione Google','Facilità d\'uso','Inclusione BES/DSA','Coinvolgimento studenti','Supporto italiano'],
+                datasets: [
+                    { label:'MagicSchool AI', data:[5,3,3,5,2,5], borderColor:verde.magic, backgroundColor:'rgba(46,125,50,.18)', pointBackgroundColor:verde.magic },
+                    { label:'Brisk Teaching', data:[3,5,5,5,2,5], borderColor:verde.brisk, backgroundColor:'rgba(67,160,71,.18)', pointBackgroundColor:verde.brisk },
+                    { label:'SchoolAI', data:[3,3,2,4,5,5], borderColor:verde.school, backgroundColor:'rgba(18,60,22,.15)', pointBackgroundColor:verde.school },
+                    { label:'Teachy', data:[4,2,5,3,2,5], borderColor:verde.teachy, backgroundColor:'rgba(124,179,66,.18)', pointBackgroundColor:verde.teachy }
+                ]
+            },
+            options: {
+                responsive:true, maintainAspectRatio:false,
+                scales:{ r:{ min:0, max:5, ticks:{ stepSize:1, backdropColor:'transparent' }, pointLabels:{ font:{ size:12, weight:'600' } }, grid:{ color:'#e2e8f0' }, angleLines:{ color:'#e2e8f0' } } },
+                plugins:{ legend:{ position:'bottom', labels:{ usePointStyle:true, boxWidth:8, padding:16 } } }
+            }
+        });
+
+        new Chart(document.getElementById('barChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Brisk Teaching','Teachy','MagicSchool AI','SchoolAI'],
+                datasets: [{
+                    label:'Rapidità di avvio (1–5)',
+                    data:[5,4,3,2],
+                    backgroundColor:[verde.brisk, verde.teachy, verde.magic, verde.school],
+                    borderRadius:8, barThickness:52
+                }]
+            },
+            options: {
+                indexAxis:'y', responsive:true, maintainAspectRatio:false,
+                scales:{ x:{ min:0, max:5, ticks:{ stepSize:1 }, grid:{ color:'#e2e8f0' } }, y:{ grid:{ display:false }, ticks:{ font:{ weight:'600' } } } },
+                plugins:{ legend:{ display:false } }
+            }
+        });
+        }
+  }
+  var tabBtns = document.querySelectorAll('.tab-btn');
+  var tabPanels = {
+    corso: document.getElementById('tab-corso'),
+    piattaforme: document.getElementById('tab-piattaforme')
+  };
+  function activateTab(name) {
+    tabBtns.forEach(function(b) { b.classList.toggle('active', b.dataset.tab === name); });
+    Object.keys(tabPanels).forEach(function(key) { tabPanels[key].classList.toggle('active', key === name); });
+    if (name === 'piattaforme') {
+      if (window.lucide) { lucide.createIcons(); }
+      initPiattaformeCharts();
+    }
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+  tabBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() { activateTab(btn.dataset.tab); });
+  });
+</script>
+</body>
+</html>
